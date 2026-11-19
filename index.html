@@ -196,6 +196,29 @@ input[type=range]{padding:0;accent-color:var(--accent);background:none;border:0;
 .plan .neg{color:var(--out)}
 .plan .del{width:28px;height:28px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+nav.tabs svg,.ls{display:none}
+.fab{display:none;position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:#1C1C1E;font-size:2rem;font-weight:500;line-height:1;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.35);z-index:31;cursor:pointer}
+@media (max-width:700px){
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;border-top:1px solid var(--line);border-bottom:0;background:color-mix(in srgb, var(--bg) 90%, transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));justify-content:space-around;gap:0;overflow:visible}
+  nav.tabs a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;border-bottom:0;margin:0;font-size:.7rem;min-width:0}
+  nav.tabs a[aria-current="page"]{color:var(--accent)}
+  nav.tabs svg{display:block;width:23px;height:23px}
+  .lf{display:none} .ls{display:inline}
+  .fab:not([hidden]){display:flex}
+  .wrap{padding:16px 14px calc(120px + env(safe-area-inset-bottom,0px))}
+  header.top{margin-bottom:14px}
+  section.panel{padding:16px}
+  .grid{gap:20px}
+  section.panel + section.panel{margin-top:20px}
+  .kpis{gap:10px;margin-bottom:20px}
+  .kpi{padding:13px 14px}
+  .hero{margin-bottom:24px}
+  input,select,.plan input{font-size:16px}
+  .toast{bottom:calc(86px + env(safe-area-inset-bottom,0px));max-width:calc(100% - 28px)}
+  .plan td{padding:4px 6px}
+  .plan input{width:96px}
+  .item{grid-template-columns:1fr 112px auto;gap:8px}
+}
 .login{max-width:420px;margin:8vh auto 0}
 .login .big{font-size:clamp(2.2rem,8vw,3.4rem);margin-bottom:10px}
 .login > p{color:var(--muted);margin:0 0 20px}
@@ -211,11 +234,11 @@ input[type=range]{padding:0;accent-color:var(--accent);background:none;border:0;
     <div class="sync" id="sync">Caricamento…</div>
   </header>
   <nav class="tabs" id="tabs" aria-label="Sezioni">
-    <a href="#panoramica" data-view="panoramica">Panoramica</a>
-    <a href="#movimenti" data-view="movimenti">Movimenti e budget</a>
-    <a href="#obiettivi" data-view="obiettivi">Obiettivi</a>
-    <a href="#patrimonio" data-view="patrimonio">Patrimonio netto</a>
-    <a href="#simulazione" data-view="simulazione">Simulazione</a>
+    <a href="#panoramica" data-view="panoramica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span class="lf">Panoramica</span><span class="ls">Home</span></a>
+    <a href="#movimenti" data-view="movimenti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg><span class="lf">Movimenti e budget</span><span class="ls">Movimenti</span></a>
+    <a href="#obiettivi" data-view="obiettivi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg><span class="lf">Obiettivi</span><span class="ls">Obiettivi</span></a>
+    <a href="#patrimonio" data-view="patrimonio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 20.5h18"/></svg><span class="lf">Patrimonio netto</span><span class="ls">Patrimonio</span></a>
+    <a href="#simulazione" data-view="simulazione"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5.5-5.5 4 4L21 7"/><path d="M15 7h6v6"/></svg><span class="lf">Simulazione</span><span class="ls">Simula</span></a>
   </nav>
 
   <!-- ============ ACCESSO ============ -->
@@ -488,6 +511,7 @@ input[type=range]{padding:0;accent-color:var(--accent);background:none;border:0;
     <input type="file" id="restoreFile" accept="application/json,.json" hidden>
   </div>
 </div>
+<button class="fab" id="fab" aria-label="Aggiungi movimento" hidden>+</button>
 <div class="toast" id="toast" role="status"><span id="toastMsg"></span><button id="undoBtn">Annulla</button></div>
 
 <script>
@@ -610,6 +634,7 @@ input[type=range]{padding:0;accent-color:var(--accent);background:none;border:0;
     $("login").hidden = on;
     $("tabs").hidden = !on;
     $("bottom").hidden = !on;
+    $("fab").hidden = !on;
     VIEWS.forEach(v => $("v-"+v).hidden = !on || v !== currentView);
     $("monthNav").hidden = !on || !["panoramica","movimenti"].includes(currentView);
   }
@@ -759,6 +784,7 @@ input[type=range]{padding:0;accent-color:var(--accent);background:none;border:0;
     const locked = !$("login").hidden;
     VIEWS.forEach(v => $("v-"+v).hidden = locked || v !== currentView);
     $("monthNav").hidden = locked || !["panoramica","movimenti"].includes(currentView);
+    $("fab").hidden = locked || currentView === "movimenti";
     document.querySelectorAll("nav.tabs a").forEach(a => {
       if(a.dataset.view === currentView) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
     });
@@ -1596,6 +1622,10 @@ input[type=range]{padding:0;accent-color:var(--accent);background:none;border:0;
   $("simUseNwLink").addEventListener("click", ()=>{ state.sim.useNW = true; save(); location.hash = "#simulazione"; });
   // Dati
   $("demoBtn").addEventListener("click", loadDemo);
+  $("fab").addEventListener("click", ()=>{
+    if(location.hash !== "#movimenti") location.hash = "#movimenti";
+    setTimeout(()=>{ window.scrollTo({top:0, behavior:"smooth"}); $("fAmount").focus({preventScroll:true}); }, 60);
+  });
   $("resetBtn").addEventListener("click", resetAll);
 
   document.querySelectorAll("#v-movimenti .kind button").forEach(b => b.addEventListener("click", ()=> setKind(b.dataset.kind)));
