@@ -1,6 +1,6 @@
 // Service worker: rende l'app installabile e utilizzabile anche offline.
 // I dati non passano da qui: le chiamate a Supabase vanno sempre in rete.
-const CACHE = "mymoneyfolder-v3";
+const CACHE = "tasca-v2";
 const SHELL = [
   "./", "./index.html", "./config.js", "./manifest.webmanifest",
   "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png",

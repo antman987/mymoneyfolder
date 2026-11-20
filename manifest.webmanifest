@@ -1,7 +1,7 @@
 {
-  "name": "MyMoneyFolder",
-  "short_name": "MyMoneyFolder",
-  "description": "Movimenti, obiettivi di risparmio e patrimonio netto.",
+  "name": "Tasca",
+  "short_name": "Tasca",
+  "description": "Conti, patrimonio, carte fedeltà e agenda, sempre in tasca.",
   "lang": "it",
   "start_url": "./",
   "scope": "./",

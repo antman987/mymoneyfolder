@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MyMoneyFolder</title>
+<title>Tasca</title>
 <meta name="theme-color" content="#1C1C1E">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MyMoneyFolder">
+<meta name="apple-mobile-web-app-title" content="Tasca">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
@@ -323,7 +323,7 @@ nav.tabs svg,.ls{display:none}
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="brand">MyMoneyFolder</div>
+    <div class="brand">Tasca</div>
     <div class="sync" id="sync">Caricamento…</div>
   </header>
   <nav class="tabs" id="tabs" aria-label="Sezioni">
@@ -361,7 +361,7 @@ nav.tabs svg,.ls{display:none}
   <main id="v-panoramica" hidden>
     <section class="panel banner" id="ovEmpty" hidden>
       <div>
-        <h2>Benvenuto in MyMoneyFolder</h2>
+        <h2>Benvenuto in Tasca</h2>
         <p class="sub" style="margin:0">Registra i tuoi movimenti, organizza le cose da fare, tieni a portata di mano le carte fedeltà e censisci il patrimonio. Vuoi prima vedere com’è con qualche dato?</p>
       </div>
       <button class="primary" id="demoBtn">Carica dati di esempio</button>
@@ -1072,7 +1072,7 @@ nav.tabs svg,.ls{display:none}
     download("movimenti.csv", csv, "text/csv;charset=utf-8");
   }
   function exportBackup(){
-    download("mymoneyfolder-backup-" + todayISO() + ".json", JSON.stringify({app:"conti-di-casa", version:1, saved:new Date().toISOString(), data:state}, null, 1), "application/json");
+    download("tasca-backup-" + todayISO() + ".json", JSON.stringify({app:"conti-di-casa", version:1, saved:new Date().toISOString(), data:state}, null, 1), "application/json");
   }
   function importBackup(file){
     const r = new FileReader();
@@ -1084,7 +1084,7 @@ nav.tabs svg,.ls{display:none}
         if(!confirm("Il backup sostituirà tutti i dati attuali. Continuare?")) return;
         state = normalize(d); save(); renderAll();
         toast("Backup caricato");
-      }catch(e){ toast("Il file scelto non è un backup valido di MyMoneyFolder"); }
+      }catch(e){ toast("Il file scelto non è un backup valido di Tasca"); }
     };
     r.readAsText(file);
   }
