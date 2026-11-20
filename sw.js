@@ -1,10 +1,13 @@
 // Service worker: rende l'app installabile e utilizzabile anche offline.
 // I dati non passano da qui: le chiamate a Supabase vanno sempre in rete.
-const CACHE = "mymoneyfolder-v1";
+const CACHE = "mymoneyfolder-v2";
 const SHELL = [
   "./", "./index.html", "./config.js", "./manifest.webmanifest",
   "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png",
-  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js",
+  "https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js",
+  "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js",
+  "https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"
 ];
 
 self.addEventListener("install", event => {

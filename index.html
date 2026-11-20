@@ -14,6 +14,8 @@
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <script src="./config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
@@ -196,6 +198,41 @@ input[type=range]{padding:0;accent-color:var(--accent);background:none;border:0;
 .plan .neg{color:var(--out)}
 .plan .del{width:28px;height:28px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wallet{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.lcard{--cc:#2F6FDB;position:relative;aspect-ratio:1.586;border:0;border-radius:14px;padding:16px;text-align:left;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg, var(--cc), color-mix(in srgb, var(--cc) 62%, #000));box-shadow:0 4px 14px rgba(0,0,0,.25);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.lcard::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.1)}
+.lcard:hover{transform:translateY(-2px)} .lcard:active{transform:none}
+.lc-name{font-weight:800;font-size:1.2rem;letter-spacing:-.01em;word-break:break-word;position:relative;z-index:1}
+.lc-num{font-size:.95rem;letter-spacing:.08em;opacity:.92;position:relative;z-index:1}
+.lc-fmt{position:absolute;right:14px;bottom:14px;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;opacity:.75}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{--cc:#2F6FDB;border:0;border-radius:999px;padding:8px 14px 8px 10px;background:var(--bg);border:1px solid var(--line);cursor:pointer;font-weight:500;display:inline-flex;align-items:center;gap:8px}
+.chip::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--cc)}
+.chip:hover{border-color:var(--muted)}
+.scanrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.ghost{flex:1;min-width:140px;border:1px dashed var(--muted);background:var(--bg);border-radius:10px;padding:12px;cursor:pointer;font-weight:500}
+.ghost:hover{border-style:solid;border-color:var(--accent)}
+.swatches{display:flex;gap:6px;flex-wrap:wrap;padding-top:4px}
+.sw{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.sw[aria-checked="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--surface) inset}
+.preview{margin-top:14px;background:#fff;border-radius:10px;padding:10px;text-align:center;color:#333}
+.preview .pv-note{font-size:.78rem;margin-top:4px;color:#555}
+.overlay{position:fixed;inset:0;z-index:60;background:#fff;color:#111;display:flex;flex-direction:column;padding:calc(14px + env(safe-area-inset-top,0px)) 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.overlay[hidden]{display:none}
+.cv-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cv-actions{display:flex;gap:8px}
+.cv-btn{border:1px solid #ccc;background:#f3f3f3;color:#111;border-radius:999px;padding:9px 16px;font-weight:600;cursor:pointer;font-size:.95rem}
+.cv-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center}
+.cv-name{font-size:clamp(1.6rem,7vw,2.6rem);font-weight:800;letter-spacing:-.02em;border-bottom:6px solid var(--cc,#2F6FDB);padding-bottom:6px}
+.cv-code{width:100%;max-width:560px;display:flex;justify-content:center}
+.cv-num{font-size:clamp(1.3rem,5.5vw,1.9rem);font-weight:700;letter-spacing:.12em;word-break:break-all;font-variant-numeric:tabular-nums}
+.cv-hint{font-size:.85rem;color:#666}
+.overlay.dark{background:#000;color:#fff;padding:0;align-items:center;justify-content:center}
+#scanVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scanframe{position:relative;width:min(80vw,420px);aspect-ratio:1.8;border:3px solid rgba(255,255,255,.9);border-radius:14px;box-shadow:0 0 0 100vmax rgba(0,0,0,.45)}
+.scanmsg{position:absolute;top:calc(24px + env(safe-area-inset-top,0px));left:16px;right:16px;text-align:center;font-weight:600;text-shadow:0 1px 4px #000}
+.scanclose{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%)}
 nav.tabs svg,.ls{display:none}
 .fab{display:none;position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:#1C1C1E;font-size:2rem;font-weight:500;line-height:1;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.35);z-index:31;cursor:pointer}
 @media (max-width:700px){
@@ -218,6 +255,11 @@ nav.tabs svg,.ls{display:none}
   .plan td{padding:4px 6px}
   .plan input{width:96px}
   .item{grid-template-columns:1fr 112px auto;gap:8px}
+  .wallet{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .lcard{padding:12px;border-radius:12px}
+  .lc-name{font-size:1rem}
+  .lc-num{font-size:.8rem}
+  .lc-fmt{display:none}
 }
 .login{max-width:420px;margin:8vh auto 0}
 .login .big{font-size:clamp(2.2rem,8vw,3.4rem);margin-bottom:10px}
@@ -236,7 +278,7 @@ nav.tabs svg,.ls{display:none}
   <nav class="tabs" id="tabs" aria-label="Sezioni">
     <a href="#panoramica" data-view="panoramica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span class="lf">Panoramica</span><span class="ls">Home</span></a>
     <a href="#movimenti" data-view="movimenti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg><span class="lf">Movimenti e budget</span><span class="ls">Movimenti</span></a>
-    <a href="#obiettivi" data-view="obiettivi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg><span class="lf">Obiettivi</span><span class="ls">Obiettivi</span></a>
+    <a href="#carte" data-view="carte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 15h4"/></svg><span class="lf">Carte fedeltà</span><span class="ls">Carte</span></a>
     <a href="#patrimonio" data-view="patrimonio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 20.5h18"/></svg><span class="lf">Patrimonio netto</span><span class="ls">Patrimonio</span></a>
     <a href="#simulazione" data-view="simulazione"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5.5-5.5 4 4L21 7"/><path d="M15 7h6v6"/></svg><span class="lf">Simulazione</span><span class="ls">Simula</span></a>
   </nav>
@@ -269,7 +311,7 @@ nav.tabs svg,.ls{display:none}
     <section class="panel banner" id="ovEmpty" hidden>
       <div>
         <h2>Benvenuto in MyMoneyFolder</h2>
-        <p class="sub" style="margin:0">Registra i tuoi movimenti, imposta obiettivi, censisci il patrimonio e simula come cambierà nel tempo. Vuoi prima vedere com’è con qualche dato?</p>
+        <p class="sub" style="margin:0">Registra i tuoi movimenti, tieni a portata di mano le carte fedeltà, censisci il patrimonio e simula come cambierà nel tempo. Vuoi prima vedere com’è con qualche dato?</p>
       </div>
       <button class="primary" id="demoBtn">Carica dati di esempio</button>
     </section>
@@ -295,9 +337,9 @@ nav.tabs svg,.ls{display:none}
           <div class="phead"><h2 id="hWhere">Dove vanno i soldi</h2><a class="more" href="#movimenti">Budget →</a></div>
           <div id="ovCats"></div>
         </section>
-        <section class="panel" aria-labelledby="hOvGoals">
-          <div class="phead"><h2 id="hOvGoals">Obiettivi</h2><a class="more" href="#obiettivi">Dettagli →</a></div>
-          <div id="ovGoals"></div>
+        <section class="panel" aria-labelledby="hOvCards">
+          <div class="phead"><h2 id="hOvCards">Carte fedeltà</h2><a class="more" href="#carte">Tutte →</a></div>
+          <div class="chips" id="ovCards"></div>
         </section>
       </div>
     </div>
@@ -354,28 +396,49 @@ nav.tabs svg,.ls{display:none}
     </div>
   </main>
 
-  <!-- ============ OBIETTIVI ============ -->
-  <main id="v-obiettivi" hidden>
-    <div class="hero">
-      <div class="big" id="gTotal">€ 0,00</div>
-      <div class="caption" id="gCaption">messi da parte per i tuoi obiettivi</div>
-      <div class="split" aria-hidden="true"><div class="fill" id="gBar" style="background:var(--accent)"></div></div>
+  <!-- ============ CARTE FEDELTÀ ============ -->
+  <main id="v-carte" hidden>
+    <div class="phead" style="margin-bottom:18px;align-items:center;flex-wrap:wrap">
+      <div>
+        <div class="big" style="font-size:clamp(2rem,7vw,3.2rem)">Carte fedeltà</div>
+        <div class="caption" id="cCaption" style="margin-bottom:0"></div>
+      </div>
+      <input id="cSearch" type="search" placeholder="Cerca una carta" aria-label="Cerca una carta" style="max-width:260px">
     </div>
     <div class="grid">
       <div>
-        <div class="goals" id="goalList"></div>
+        <div class="wallet" id="cList"></div>
       </div>
       <div>
-        <section class="panel" aria-labelledby="hGoal">
-          <h2 id="hGoal">Nuovo obiettivo</h2>
-          <div class="fields">
-            <div class="full"><label for="gName">Nome</label><input id="gName" placeholder="Es. Fondo emergenze, viaggio in Giappone" maxlength="60"></div>
-            <div><label for="gTarget">Traguardo (€)</label><input id="gTarget" inputmode="decimal" placeholder="5.000"></div>
-            <div><label for="gStart">Già messo da parte (€)</label><input id="gStart" inputmode="decimal" placeholder="0"></div>
-            <div class="full"><label for="gDate">Entro il (facoltativo)</label><input id="gDate" type="date"></div>
+        <section class="panel" aria-labelledby="hCardForm">
+          <h2 id="hCardForm">Aggiungi una carta</h2>
+          <div class="scanrow">
+            <button class="ghost" id="cScan">📷 Scansiona con la fotocamera</button>
+            <button class="ghost" id="cPhoto">🖼 Da una foto</button>
+            <input type="file" id="cPhotoFile" accept="image/*" capture="environment" hidden>
           </div>
-          <button class="primary" id="gAdd">Crea obiettivo</button>
-          <div class="err" id="gErr" role="alert"></div>
+          <div class="fields">
+            <div class="full"><label for="cName">Negozio</label><input id="cName" placeholder="Es. Supermercato, Farmacia, Benzinaio" maxlength="40"></div>
+            <div class="full"><label for="cNum">Numero della carta</label><input id="cNum" class="amount" placeholder="Scansiona o scrivi il numero" maxlength="120" autocomplete="off" style="font-size:1.15rem"></div>
+            <div><label for="cFmt">Tipo di codice</label>
+              <select id="cFmt">
+                <option value="auto">Automatico</option>
+                <option value="EAN13">EAN-13</option>
+                <option value="EAN8">EAN-8</option>
+                <option value="UPC">UPC-A</option>
+                <option value="CODE128">Code 128</option>
+                <option value="CODE39">Code 39</option>
+                <option value="ITF">ITF</option>
+                <option value="codabar">Codabar</option>
+                <option value="QR">QR code</option>
+                <option value="TEXT">Solo numero</option>
+              </select></div>
+            <div><label>Colore</label><div class="swatches" id="cColors" role="radiogroup" aria-label="Colore della carta"></div></div>
+          </div>
+          <button class="primary" id="cSave">Aggiungi carta</button>
+          <div class="footer-actions" id="cEditActions" hidden><button class="link" id="cCancel">Annulla modifica</button></div>
+          <div class="err" id="cErr" role="alert"></div>
+          <div class="preview" id="cPreview" hidden></div>
         </section>
       </div>
     </div>
@@ -511,6 +574,24 @@ nav.tabs svg,.ls{display:none}
     <input type="file" id="restoreFile" accept="application/json,.json" hidden>
   </div>
 </div>
+<div class="overlay" id="cardView" hidden role="dialog" aria-modal="true" aria-labelledby="cvName">
+  <div class="cv-top">
+    <button class="cv-btn" id="cvClose" aria-label="Chiudi">✕</button>
+    <div class="cv-actions"><button class="cv-btn" id="cvEdit">Modifica</button><button class="cv-btn" id="cvDel">Elimina</button></div>
+  </div>
+  <div class="cv-body">
+    <div class="cv-name" id="cvName"></div>
+    <div class="cv-code" id="cvCode"></div>
+    <div class="cv-num" id="cvNum"></div>
+    <div class="cv-hint">Alza la luminosità dello schermo se il lettore fa fatica</div>
+  </div>
+</div>
+<div class="overlay dark" id="scanView" hidden role="dialog" aria-modal="true" aria-label="Scansione della carta">
+  <video id="scanVideo" playsinline muted></video>
+  <div class="scanframe" aria-hidden="true"></div>
+  <div class="scanmsg" id="scanMsg">Inquadra il codice a barre della carta</div>
+  <button class="cv-btn scanclose" id="scanClose">Annulla</button>
+</div>
 <button class="fab" id="fab" aria-label="Aggiungi movimento" hidden>+</button>
 <div class="toast" id="toast" role="status"><span id="toastMsg"></span><button id="undoBtn">Annulla</button></div>
 
@@ -545,7 +626,7 @@ nav.tabs svg,.ls{display:none}
     if(x.overrides && typeof x.overrides === "object") Object.keys(x.overrides).forEach(k => { ov[k] = Object.assign({}, x.overrides[k]); });
     return {start: Number(x.start) || 0, useNW: x.useNW !== false, startDate: sd, months: Math.min(120, Math.max(1, Number(x.months) || 12)), rate: Number(x.rate) || 0, items, overrides: ov};
   }
-  let state = {tx:[], budgets:{}, goals:[], nw:[], nwHist:[], sim:normSim()};
+  let state = {tx:[], budgets:{}, goals:[], nw:[], nwHist:[], sim:normSim(), cards:[]};
   let kind = "out", nwKind = "asset";
   let view = new Date(); view.setDate(1);
   let saving = false, pending = false;
@@ -560,7 +641,8 @@ nav.tabs svg,.ls{display:none}
       goals: Array.isArray(d.goals) ? d.goals.map(g => Object.assign({}, g)) : [],
       nw: Array.isArray(d.nw) ? d.nw.map(x => Object.assign({}, x)) : [],
       nwHist: Array.isArray(d.nwHist) ? d.nwHist.map(x => Object.assign({}, x)) : [],
-      sim: normSim(d.sim)
+      sim: normSim(d.sim),
+      cards: Array.isArray(d.cards) ? d.cards.map(c => Object.assign({}, c)) : []
     };
   }
 
@@ -777,14 +859,14 @@ nav.tabs svg,.ls{display:none}
   $("undoBtn").addEventListener("click", ()=>{ if(undoFn){ undoFn(); undoFn = null; } $("toast").classList.remove("show"); });
 
   // ---------- Navigazione ----------
-  const VIEWS = ["panoramica","movimenti","obiettivi","patrimonio","simulazione"];
+  const VIEWS = ["panoramica","movimenti","carte","patrimonio","simulazione"];
   function route(){
     const h = location.hash.replace("#","");
     currentView = VIEWS.includes(h) ? h : "panoramica";
     const locked = !$("login").hidden;
     VIEWS.forEach(v => $("v-"+v).hidden = locked || v !== currentView);
     $("monthNav").hidden = locked || !["panoramica","movimenti"].includes(currentView);
-    $("fab").hidden = locked || currentView === "movimenti";
+    $("fab").hidden = locked || currentView === "movimenti" || currentView === "carte";
     document.querySelectorAll("nav.tabs a").forEach(a => {
       if(a.dataset.view === currentView) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
     });
@@ -796,7 +878,7 @@ nav.tabs svg,.ls{display:none}
     $("monthLabel").textContent = monthFmt.format(view);
     if(currentView === "panoramica") renderOverview();
     else if(currentView === "movimenti") renderMov();
-    else if(currentView === "obiettivi") renderGoals();
+    else if(currentView === "carte") renderCards();
     else if(currentView === "patrimonio") renderNW();
     else renderSim();
   }
@@ -1267,20 +1349,16 @@ nav.tabs svg,.ls{display:none}
       ul.appendChild(li);
     });
 
-    // Obiettivi
-    const gbox = $("ovGoals"); gbox.innerHTML = "";
-    if(!state.goals.length){ gbox.innerHTML = '<p class="empty" style="padding:0">Nessun obiettivo. <a class="more" href="#obiettivi">Creane uno</a>.</p>'; }
-    state.goals.slice(0,4).forEach(g => {
-      const row = document.createElement("div"); row.className = "cat";
-      row.innerHTML = '<div class="name"></div><div class="nums"><b></b><span class="of"></span></div><div class="bar"><span></span></div>';
-      row.querySelector(".name").textContent = g.name;
-      row.querySelector("b").textContent = Math.min(100, Math.round(g.saved/g.target*100)) + "%";
-      row.querySelector(".of").textContent = " · " + fmt0.format(g.saved) + " su " + fmt0.format(g.target);
-      const sp = row.querySelector(".bar span"); sp.style.width = Math.min(100, g.saved/g.target*100) + "%"; sp.style.background = g.saved >= g.target ? "var(--in)" : "var(--accent)";
-      gbox.appendChild(row);
+    // Carte
+    const cb = $("ovCards"); cb.innerHTML = "";
+    if(!state.cards.length){ cb.innerHTML = '<p class="empty" style="padding:0">Nessuna carta salvata. <a class="more" href="#carte">Aggiungine una</a>.</p>'; }
+    state.cards.slice().sort((x,y)=> (y.used||0) - (x.used||0)).slice(0,8).forEach(c => {
+      const b = document.createElement("button"); b.className = "chip"; b.style.setProperty("--cc", c.color || "#2F6FDB"); b.textContent = c.name;
+      b.setAttribute("aria-label","Mostra la carta " + c.name);
+      b.addEventListener("click", ()=> showCard(c)); cb.appendChild(b);
     });
 
-    $("ovEmpty").hidden = !!(state.tx.length || state.nw.length || state.goals.length);
+    $("ovEmpty").hidden = !!(state.tx.length || state.nw.length || state.cards.length);
   }
 
   // ================= SIMULAZIONE =================
@@ -1579,9 +1657,11 @@ nav.tabs svg,.ls{display:none}
     return {
       tx, nw, nwHist: hist,
       budgets: {"Spesa alimentare":280, "Ristoranti e bar":80, "Svago":60, "Trasporti":70},
-      goals: [
-        {id:uid(), name:"Fondo emergenze", target:6000, saved:3800, deadline:"", created:Date.now()},
-        {id:uid(), name:"Viaggio in Giappone", target:3500, saved:900, deadline:inMonths(10), created:Date.now()}
+      goals: [],
+      cards: [
+        {id:uid(), name:"Supermercato", number:"4006381333931", format:"auto", color:"#D64545", created:Date.now(), used:3},
+        {id:uid(), name:"Farmacia", number:"FA-2048-7731", format:"CODE128", color:"#2E9E6B", created:Date.now(), used:2},
+        {id:uid(), name:"Libreria", number:"SOCIO:88812345", format:"QR", color:"#8A4FD3", created:Date.now(), used:1}
       ],
       sim: {start:0, useNW:true, months:24, rate:2, items:[
         {id:uid(), kind:"in", desc:"Stipendio", amount:1850, freq:"monthly"},
@@ -1596,12 +1676,250 @@ nav.tabs svg,.ls{display:none}
     toast("Dati di esempio caricati: puoi azzerarli dal fondo della pagina");
   }
   function resetAll(){
-    if(!confirm("Vuoi davvero cancellare tutti i movimenti, gli obiettivi, il patrimonio e la simulazione? L’operazione non si può annullare. Ti conviene prima scaricare un backup.")) return;
+    if(!confirm("Vuoi davvero cancellare tutti i movimenti, le carte, il patrimonio e la simulazione? L’operazione non si può annullare. Ti conviene prima scaricare un backup.")) return;
     state = normalize({}); save(); renderAll();
     toast("Tutti i dati sono stati cancellati");
   }
 
+  // ================= CARTE FEDELTÀ =================
+  const CARD_COLORS = ["#2F6FDB","#D64545","#2E9E6B","#E0A126","#8A4FD3","#E06A2C","#1F9AA8","#5A5A60"];
+  const ZXING_URL = "https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js";
+  const FMT_LABEL = {EAN13:"EAN-13", EAN8:"EAN-8", UPC:"UPC-A", CODE128:"Code 128", CODE39:"Code 39", ITF:"ITF", codabar:"Codabar", QR:"QR code", TEXT:"solo numero"};
+  const ZX_TO_FMT = {EAN_13:"EAN13", EAN_8:"EAN8", UPC_A:"UPC", UPC_E:"CODE128", CODE_128:"CODE128", CODE_39:"CODE39", ITF:"ITF", CODABAR:"codabar", QR_CODE:"QR", CODE_93:"CODE128", RSS_14:"CODE128"};
+  let cardColor = CARD_COLORS[0], editingCard = null, openCard = null, wakeLock = null;
+
+  function eanOk(d){
+    if(!/^\d+$/.test(d)) return false;
+    const digits = d.split("").map(Number), check = digits.pop();
+    let sum = 0; digits.reverse().forEach((n,i) => sum += n * (i % 2 === 0 ? 3 : 1));
+    return (10 - sum % 10) % 10 === check;
+  }
+  function autoFormat(num){
+    const n = num.replace(/\s/g,"");
+    if(/^\d{13}$/.test(n) && eanOk(n)) return "EAN13";
+    if(/^\d{8}$/.test(n) && eanOk(n)) return "EAN8";
+    if(/^\d{12}$/.test(n) && eanOk(n)) return "UPC";
+    return "CODE128";
+  }
+  function effectiveFormat(card){ return card.format && card.format !== "auto" ? card.format : autoFormat(card.number); }
+
+  // Disegna il codice dentro un contenitore; restituisce un eventuale avviso
+  function drawCode(box, card, big){
+    box.innerHTML = "";
+    const fmt = effectiveFormat(card), value = fmt === "QR" ? card.number : card.number.replace(/\s/g,"");
+    if(fmt === "TEXT"){ return ""; }
+    if(fmt === "QR"){
+      if(typeof window.qrcode !== "function"){ box.textContent = "QR non disponibile offline: mostra il numero."; return "lib"; }
+      try{
+        const qr = window.qrcode(0, "M"); qr.addData(value); qr.make();
+        box.innerHTML = qr.createSvgTag({cellSize: big ? 8 : 4, margin: 2, scalable: true});
+        const svg = box.querySelector("svg"); if(svg){ svg.style.width = big ? "min(78vw, 340px)" : "120px"; svg.style.height = "auto"; svg.removeAttribute("width"); svg.removeAttribute("height"); }
+        return "";
+      }catch(e){ box.textContent = "Codice troppo lungo per un QR."; return "err"; }
+    }
+    if(typeof window.JsBarcode !== "function"){ box.textContent = "Codice a barre non disponibile offline: mostra il numero."; return "lib"; }
+    const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+    box.appendChild(svg);
+    const opts = {format: fmt, displayValue:false, margin: big ? 16 : 8, height: big ? 130 : 56, width: big ? 2.6 : 1.6, background:"#ffffff", lineColor:"#000000"};
+    try{ window.JsBarcode(svg, value, opts); }
+    catch(e){
+      try{ window.JsBarcode(svg, value, Object.assign({}, opts, {format:"CODE128"})); return "fallback"; }
+      catch(e2){ box.textContent = "Numero non valido per un codice a barre."; return "err"; }
+    }
+    svg.style.maxWidth = "100%"; svg.style.height = "auto";
+    return "";
+  }
+
+  function renderCards(){
+    const q = $("cSearch").value.trim().toLowerCase();
+    const list = state.cards.slice().sort((a,b)=> (b.used||0) - (a.used||0) || a.name.localeCompare(b.name, "it"));
+    $("cCaption").textContent = state.cards.length ? (state.cards.length === 1 ? "1 carta salvata" : state.cards.length + " carte salvate") + " · tocca una carta per mostrarla in cassa" : "Salva qui le tue tessere: in cassa le apri e mostri il codice";
+    const box = $("cList"); box.innerHTML = "";
+    const shown = list.filter(c => !q || c.name.toLowerCase().includes(q) || c.number.toLowerCase().includes(q));
+    if(!shown.length){
+      const p = document.createElement("p"); p.className = "empty";
+      p.textContent = q ? "Nessuna carta corrisponde alla ricerca." : "Nessuna carta ancora. Aggiungi la prima: puoi scansionarla con la fotocamera o scrivere il numero.";
+      box.appendChild(p);
+    }
+    shown.forEach(c => box.appendChild(cardTile(c)));
+    if(!editingCard) $("hCardForm").textContent = "Aggiungi una carta";
+    renderColors();
+  }
+  function cardTile(c){
+    const b = document.createElement("button"); b.className = "lcard"; b.style.setProperty("--cc", c.color || CARD_COLORS[0]);
+    const n = document.createElement("span"); n.className = "lc-name"; n.textContent = c.name;
+    const num = document.createElement("span"); num.className = "lc-num";
+    const clean = c.number.replace(/\s/g,""); num.textContent = clean.length > 6 ? "•••• " + clean.slice(-4) : clean;
+    const f = document.createElement("span"); f.className = "lc-fmt"; f.textContent = FMT_LABEL[effectiveFormat(c)] || "";
+    b.append(n, num, f);
+    b.setAttribute("aria-label", "Mostra la carta " + c.name);
+    b.addEventListener("click", ()=> showCard(c));
+    return b;
+  }
+  function renderColors(){
+    const box = $("cColors"); box.innerHTML = "";
+    CARD_COLORS.forEach(col => {
+      const s = document.createElement("button"); s.type = "button"; s.className = "sw"; s.style.background = col;
+      s.setAttribute("role","radio"); s.setAttribute("aria-checked", String(col === cardColor)); s.setAttribute("aria-label","Colore " + col);
+      s.addEventListener("click", ()=>{ cardColor = col; renderColors(); });
+      box.appendChild(s);
+    });
+  }
+  function updatePreview(){
+    const num = $("cNum").value.trim(), pv = $("cPreview");
+    if(!num){ pv.hidden = true; return; }
+    pv.hidden = false;
+    const card = {number:num, format:$("cFmt").value};
+    const inner = document.createElement("div"); pv.innerHTML = ""; pv.appendChild(inner);
+    const warn = drawCode(inner, card, false);
+    const note = document.createElement("div"); note.className = "pv-note";
+    note.textContent = "Anteprima · " + (FMT_LABEL[effectiveFormat(card)] || "") + (warn === "fallback" ? " non valido per questo numero, uso Code 128" : "");
+    pv.appendChild(note);
+  }
+  function saveCard(){
+    const name = $("cName").value.trim(), number = $("cNum").value.trim();
+    if(!name){ $("cErr").textContent = "Scrivi il nome del negozio."; $("cName").focus(); return; }
+    if(!number){ $("cErr").textContent = "Scansiona la carta o scrivi il numero."; $("cNum").focus(); return; }
+    $("cErr").textContent = "";
+    if(editingCard){
+      Object.assign(editingCard, {name, number, format:$("cFmt").value, color:cardColor});
+      toast("Carta aggiornata");
+    } else {
+      state.cards.push({id:uid(), name, number, format:$("cFmt").value, color:cardColor, created:Date.now(), used:0});
+      toast("Carta aggiunta");
+    }
+    resetCardForm(); save(); renderCards();
+  }
+  function resetCardForm(){
+    editingCard = null;
+    $("cName").value = ""; $("cNum").value = ""; $("cFmt").value = "auto";
+    cardColor = CARD_COLORS[state.cards.length % CARD_COLORS.length];
+    $("cSave").textContent = "Aggiungi carta"; $("cEditActions").hidden = true; $("hCardForm").textContent = "Aggiungi una carta";
+    $("cPreview").hidden = true; $("cErr").textContent = "";
+  }
+  function editCard(c){
+    closeCard();
+    if(location.hash !== "#carte") location.hash = "#carte";
+    setTimeout(()=>{
+      editingCard = c;
+      $("cName").value = c.name; $("cNum").value = c.number; $("cFmt").value = c.format || "auto"; cardColor = c.color || CARD_COLORS[0];
+      $("cSave").textContent = "Salva modifiche"; $("cEditActions").hidden = false; $("hCardForm").textContent = "Modifica " + c.name;
+      renderColors(); updatePreview();
+      $("hCardForm").scrollIntoView({behavior:"smooth", block:"start"}); $("cName").focus({preventScroll:true});
+    }, 60);
+  }
+
+  // ---- Visualizzazione in cassa ----
+  async function showCard(c){
+    openCard = c;
+    c.used = Date.now(); save();
+    $("cvName").textContent = c.name;
+    $("cvNum").textContent = c.number;
+    const warn = drawCode($("cvCode"), c, true);
+    $("cardView").style.setProperty("--cc", c.color || CARD_COLORS[0]);
+    $("cardView").hidden = false; document.body.style.overflow = "hidden";
+    $("cvClose").focus();
+    try{ if("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen"); }catch(e){}
+    if(warn === "fallback") toast("Il numero non è valido per il formato scelto: mostro un Code 128");
+  }
+  function closeCard(){
+    if($("cardView").hidden) return;
+    $("cardView").hidden = true; document.body.style.overflow = "";
+    try{ if(wakeLock) wakeLock.release(); }catch(e){} wakeLock = null;
+    openCard = null;
+    renderAll();
+  }
+
+  // ---- Scansione ----
+  function loadZXing(){
+    if(window.ZXing) return Promise.resolve(window.ZXing);
+    return new Promise((res, rej) => {
+      const s = document.createElement("script"); s.src = ZXING_URL; s.async = true;
+      s.onload = () => window.ZXing ? res(window.ZXing) : rej(new Error("lib")); s.onerror = () => rej(new Error("lib"));
+      document.head.appendChild(s);
+    });
+  }
+  let reader = null;
+  function scanHints(ZX){
+    const hints = new Map();
+    hints.set(ZX.DecodeHintType.TRY_HARDER, true);
+    return hints;
+  }
+  function applyScan(result, ZX){
+    const text = result.getText();
+    const zxName = ZX.BarcodeFormat[result.getBarcodeFormat()];
+    $("cNum").value = text;
+    $("cFmt").value = ZX_TO_FMT[zxName] || "CODE128";
+    if(!editingCard && !$("cName").value.trim()) $("cName").focus({preventScroll:true});
+    updatePreview();
+    toast("Codice letto: " + (FMT_LABEL[$("cFmt").value] || zxName));
+    if(navigator.vibrate) try{ navigator.vibrate(60); }catch(e){}
+  }
+  async function startScan(){
+    $("cErr").textContent = "";
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ $("cErr").textContent = "La fotocamera non è disponibile qui: usa «Da una foto» o scrivi il numero."; return; }
+    $("scanView").hidden = false; document.body.style.overflow = "hidden";
+    $("scanMsg").textContent = "Avvio della fotocamera…";
+    let ZX;
+    try{ ZX = await loadZXing(); }
+    catch(e){ stopScan(); $("cErr").textContent = "Non riesco a caricare il lettore di codici (serve la connessione la prima volta)."; return; }
+    try{
+      reader = new ZX.BrowserMultiFormatReader(scanHints(ZX), 300);
+      $("scanMsg").textContent = "Inquadra il codice a barre della carta";
+      await reader.decodeFromConstraints({video:{facingMode:{ideal:"environment"}}}, $("scanVideo"), (result) => {
+        if(result){ stopScan(); applyScan(result, ZX); }
+      });
+    }catch(e){
+      stopScan();
+      const m = String(e && (e.name || e.message) || "");
+      $("cErr").textContent = /NotAllowed|Permission/i.test(m) ? "Accesso alla fotocamera negato. Consentilo nelle impostazioni del browser, oppure usa «Da una foto»."
+        : "Non riesco ad aprire la fotocamera qui. Prova «Da una foto» o scrivi il numero.";
+    }
+  }
+  function stopScan(){
+    try{ if(reader) reader.reset(); }catch(e){}
+    reader = null;
+    const v = $("scanVideo"); try{ if(v.srcObject){ v.srcObject.getTracks().forEach(t => t.stop()); v.srcObject = null; } }catch(e){}
+    $("scanView").hidden = true; document.body.style.overflow = "";
+  }
+  async function scanPhoto(file){
+    $("cErr").textContent = "";
+    let ZX;
+    try{ ZX = await loadZXing(); }catch(e){ $("cErr").textContent = "Non riesco a caricare il lettore di codici (serve la connessione la prima volta)."; return; }
+    const url = URL.createObjectURL(file);
+    try{
+      const r = new ZX.BrowserMultiFormatReader(scanHints(ZX));
+      const result = await r.decodeFromImageUrl(url);
+      applyScan(result, ZX);
+    }catch(e){
+      $("cErr").textContent = "Nessun codice trovato nella foto. Prova con una foto più vicina e dritta, oppure scrivi il numero.";
+    }finally{ URL.revokeObjectURL(url); }
+  }
+
   // ---------- Eventi ----------
+  // Carte
+  $("cSave").addEventListener("click", saveCard);
+  $("cCancel").addEventListener("click", ()=>{ resetCardForm(); renderColors(); });
+  ["cName","cNum"].forEach(id => $(id).addEventListener("keydown", e => { if(e.key === "Enter") saveCard(); }));
+  $("cNum").addEventListener("input", updatePreview);
+  $("cFmt").addEventListener("change", updatePreview);
+  $("cSearch").addEventListener("input", renderCards);
+  $("cScan").addEventListener("click", startScan);
+  $("scanClose").addEventListener("click", stopScan);
+  $("cPhoto").addEventListener("click", ()=> $("cPhotoFile").click());
+  $("cPhotoFile").addEventListener("change", e => { const f = e.target.files[0]; if(f) scanPhoto(f); e.target.value = ""; });
+  $("cvClose").addEventListener("click", closeCard);
+  $("cardView").addEventListener("click", e => { if(e.target === $("cardView")) closeCard(); });
+  $("cvEdit").addEventListener("click", ()=>{ if(openCard) editCard(openCard); });
+  $("cvDel").addEventListener("click", ()=>{
+    const c = openCard; if(!c) return;
+    if(!confirm("Eliminare la carta " + c.name + "?")) return;
+    const idx = state.cards.indexOf(c); closeCard();
+    if(idx >= 0){ state.cards.splice(idx,1); save(); renderAll(); toast("Carta eliminata", ()=>{ state.cards.splice(idx,0,c); save(); renderAll(); }); }
+  });
+  document.addEventListener("keydown", e => { if(e.key === "Escape"){ if(!$("scanView").hidden) stopScan(); else closeCard(); } });
+  cardColor = CARD_COLORS[0];
+
   // Conti
   ["fAcc","fltAcc"].forEach(id => ACCOUNTS.forEach(a => { const o = document.createElement("option"); o.value = a; o.textContent = a; $(id).appendChild(o); }));
   ["fltKind","fltAcc"].forEach(id => $(id).addEventListener("change", ()=> renderTx(monthTx(ym(view)))));
@@ -1638,8 +1956,6 @@ nav.tabs svg,.ls{display:none}
   $("backupBtn").addEventListener("click", exportBackup);
   $("restoreBtn").addEventListener("click", ()=> $("restoreFile").click());
   $("restoreFile").addEventListener("change", e => { const f = e.target.files[0]; if(f) importBackup(f); e.target.value = ""; });
-  $("gAdd").addEventListener("click", addGoal);
-  ["gName","gTarget","gStart"].forEach(id => $(id).addEventListener("keydown", e => { if(e.key==="Enter") addGoal(); }));
   document.querySelectorAll("#nwKind button").forEach(b => b.addEventListener("click", ()=> setNwKind(b.dataset.k)));
   $("nAdd").addEventListener("click", addItem);
   ["nName","nCat","nVal"].forEach(id => $(id).addEventListener("keydown", e => { if(e.key==="Enter") addItem(); }));
