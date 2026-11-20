@@ -159,7 +159,11 @@ input.amount{font-size:1.4rem;font-weight:700}
 @media (max-width:820px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;text-decoration:none;color:inherit;display:block;min-width:0}
 a.kpi:hover{border-color:var(--muted)}
-.kpi .kl{font-size:.85rem;color:var(--muted)}
+.kpi .kl{font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:6px}
+.eye{background:none;border:0;padding:6px;margin:-6px -6px -6px 0;color:var(--muted);cursor:pointer;line-height:0;border-radius:8px}
+.eye:hover{color:var(--ink);background:var(--track)}
+.eye svg{width:17px;height:17px}
+.kv.masked{letter-spacing:.12em}
 .kpi .kv{font-size:clamp(1.25rem,3.2vw,1.9rem);font-weight:800;letter-spacing:-.02em;margin:4px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kpi .kv.pos{color:var(--in)} .kpi .kv.neg{color:var(--out)}
 .kpi .ks{font-size:.82rem;color:var(--muted)}
@@ -363,7 +367,7 @@ nav.tabs svg,.ls{display:none}
       <button class="primary" id="demoBtn">Carica dati di esempio</button>
     </section>
     <div class="kpis">
-      <a class="kpi" href="#patrimonio"><div class="kl">Patrimonio netto</div><div class="kv" id="kNw">€ 0,00</div><div class="ks" id="kNwSub"></div></a>
+      <a class="kpi" href="#patrimonio"><div class="kl"><span>Patrimonio netto</span><button class="eye" id="kNwEye" type="button" aria-pressed="false" aria-label="Nascondi il patrimonio netto"></button></div><div class="kv" id="kNw">€ 0,00</div><div class="ks" id="kNwSub"></div></a>
       <a class="kpi" href="#movimenti"><div class="kl">Entrate del mese</div><div class="kv pos" id="kIn">€ 0,00</div><div class="ks" id="kInSub"></div></a>
       <a class="kpi" href="#movimenti"><div class="kl">Uscite del mese</div><div class="kv neg" id="kOut">€ 0,00</div><div class="ks" id="kOutSub"></div></a>
       <div class="kpi"><div class="kl">Tasso di risparmio</div><div class="kv" id="kRate">—</div><div class="ks" id="kRateSub"></div></div>
@@ -652,7 +656,7 @@ nav.tabs svg,.ls{display:none}
     if(x.overrides && typeof x.overrides === "object") Object.keys(x.overrides).forEach(k => { ov[k] = Object.assign({}, x.overrides[k]); });
     return {start: Number(x.start) || 0, useNW: x.useNW !== false, startDate: sd, months: Math.min(120, Math.max(1, Number(x.months) || 12)), rate: Number(x.rate) || 0, items, overrides: ov};
   }
-  let state = {tx:[], budgets:{}, goals:[], nw:[], nwHist:[], sim:normSim(), cards:[], tasks:[]};
+  let state = {tx:[], budgets:{}, goals:[], nw:[], nwHist:[], sim:normSim(), cards:[], tasks:[], prefs:{}};
   let kind = "out", nwKind = "asset";
   let view = new Date(); view.setDate(1);
   let saving = false, pending = false;
@@ -669,7 +673,8 @@ nav.tabs svg,.ls{display:none}
       nwHist: Array.isArray(d.nwHist) ? d.nwHist.map(x => Object.assign({}, x)) : [],
       sim: normSim(d.sim),
       cards: Array.isArray(d.cards) ? d.cards.map(c => Object.assign({}, c)) : [],
-      tasks: Array.isArray(d.tasks) ? d.tasks.map(t => Object.assign({}, t)) : []
+      tasks: Array.isArray(d.tasks) ? d.tasks.map(t => Object.assign({}, t)) : [],
+      prefs: Object.assign({}, d.prefs || {})
     };
   }
 
@@ -1329,8 +1334,15 @@ nav.tabs svg,.ls{display:none}
   function renderOverview(){
     const key = ym(view); const list = monthTx(key); const {i,o} = totals(list);
     const nw = nwTotals();
-    const kNw = $("kNw"); kNw.textContent = fmt.format(nw.n); kNw.classList.toggle("neg", nw.n < 0);
-    $("kNwSub").textContent = state.nw.length ? state.nw.length + (state.nw.length === 1 ? " voce censita" : " voci censite") : "nessuna voce ancora";
+    const hideNW = !!state.prefs.hideNW;
+    const kNw = $("kNw"); kNw.textContent = hideNW ? "€ ••••••" : fmt.format(nw.n); kNw.classList.toggle("neg", !hideNW && nw.n < 0); kNw.classList.toggle("masked", hideNW);
+    $("kNwSub").textContent = hideNW ? "nascosto · tocca l’occhio per mostrarlo" : state.nw.length ? state.nw.length + (state.nw.length === 1 ? " voce censita" : " voci censite") : "nessuna voce ancora";
+    const eye = $("kNwEye");
+    eye.setAttribute("aria-pressed", String(hideNW));
+    eye.setAttribute("aria-label", hideNW ? "Mostra il patrimonio netto" : "Nascondi il patrimonio netto");
+    eye.innerHTML = hideNW
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A9.8 9.8 0 0 1 12 5c6 0 9.5 7 9.5 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.9 8.4 2.5 12 2.5 12s3.5 7 9.5 7a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
     const nIn = list.filter(t => t.kind === "in").length, nOut = list.length - nIn;
     $("kIn").textContent = "+" + fmt.format(i); $("kInSub").textContent = nIn + (nIn === 1 ? " movimento" : " movimenti");
     $("kOut").textContent = "−" + fmt.format(o); $("kOutSub").textContent = nOut + (nOut === 1 ? " movimento" : " movimenti");
@@ -2196,6 +2208,7 @@ nav.tabs svg,.ls{display:none}
   ["fltKind","fltAcc"].forEach(id => $(id).addEventListener("change", ()=> renderTx(monthTx(ym(view)))));
   // Dati
   $("demoBtn").addEventListener("click", loadDemo);
+  $("kNwEye").addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); state.prefs.hideNW = !state.prefs.hideNW; save(); renderOverview(); });
   $("fab").addEventListener("click", ()=>{
     if(location.hash !== "#movimenti") location.hash = "#movimenti";
     setTimeout(()=>{ window.scrollTo({top:0, behavior:"smooth"}); $("fAmount").focus({preventScroll:true}); }, 60);
