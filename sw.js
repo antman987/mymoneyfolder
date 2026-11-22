@@ -1,6 +1,6 @@
 // Service worker: rende l'app installabile e utilizzabile anche offline.
 // I dati non passano da qui: le chiamate a Supabase vanno sempre in rete.
-const CACHE = "tasca-v2";
+const CACHE = "tasca-v5";
 const SHELL = [
   "./", "./index.html", "./config.js", "./manifest.webmanifest",
   "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png",
@@ -11,7 +11,7 @@ const SHELL = [
 ];
 
 self.addEventListener("install", event => {
-  event.waitUntil(caches.open(CACHE).then(c => Promise.allSettled(SHELL.map(u => c.add(u)))).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(CACHE).then(c => Promise.allSettled(SHELL.map(u => c.add(new Request(u, {cache: "reload"}))))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", event => {
@@ -29,9 +29,9 @@ self.addEventListener("fetch", event => {
   if (!cacheable) return; // es. Supabase: sempre in rete
 
   // Pagina e configurazione: prima la rete (così gli aggiornamenti arrivano subito), poi la copia salvata.
-  if (req.mode === "navigate" || (sameOrigin && /\/(index\.html|config\.js)?$/.test(url.pathname))) {
+  if (req.mode === "navigate" || (sameOrigin && /\/(index\.html|config\.js|manifest\.webmanifest)?$/.test(url.pathname))) {
     event.respondWith(
-      fetch(req).then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); return res; })
+      fetch(req, {cache: "no-cache"}).then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); return res; })
         .catch(() => caches.match(req).then(r => r || caches.match("./index.html")))
     );
     return;
