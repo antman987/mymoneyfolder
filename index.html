@@ -305,6 +305,44 @@ section.panel .tasks{background:none;border:0;padding:0;border-radius:0}
 .ne-meta{font-size:.8rem;color:var(--muted);margin-top:8px;min-height:1em}
 .sw.none{background:var(--bg);border:2px dashed var(--muted)}
 .sw.none[aria-checked="true"]{border-style:solid;border-color:var(--ink)}
+.seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px;margin-bottom:18px}
+.seg a{padding:7px 18px;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:500;font-size:.95rem}
+.seg a[aria-current="page"]{background:var(--ink);color:var(--btn-ink)}
+.habit{--hc:#5BC08F;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.hb-top{display:flex;align-items:center;gap:12px}
+.hb-today{flex:none;width:48px;height:48px;border-radius:50%;border:2px solid var(--hc);background:transparent;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.hb-today[aria-pressed="true"]{background:var(--hc);box-shadow:0 0 0 4px color-mix(in srgb, var(--hc) 25%, transparent)}
+.hb-info{flex:1;min-width:0}
+.hb-name{font-weight:700;font-size:1.05rem;word-break:break-word}
+.hb-sub{font-size:.84rem;color:var(--muted)}
+.hb-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}
+.hb-day{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:0;cursor:pointer;padding:2px 0;color:var(--muted);font-size:.72rem}
+.hb-day .c{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--line);color:var(--ink);font-size:.85rem;font-weight:500}
+.hb-day.on .c{background:var(--hc);border-color:var(--hc);color:#1C1C1E;font-weight:700}
+.hb-day.off .c{border-style:dashed;opacity:.55}
+.hb-day.now .l{color:var(--ink);font-weight:700}
+.hb-detail{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.hb-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.hb-stats div{display:flex;flex-direction:column}
+.hb-stats b{font-size:1.3rem;font-weight:800}
+.hb-stats span{font-size:.78rem;color:var(--muted)}
+.heat{display:grid;grid-template-columns:repeat(18,1fr);grid-template-rows:repeat(7,auto);gap:3px;max-width:420px}
+.heat span{aspect-ratio:1;border-radius:3px;background:var(--track)}
+.heat span.on{background:var(--hc)}
+.heat span.off{background:transparent;border:1px solid var(--track)}
+.heat span.fut{background:transparent}
+.emojirow{display:flex;gap:10px;align-items:flex-start}
+.emojirow input{width:64px;flex:none;text-align:center;font-size:1.4rem;padding:6px}
+.emojiopts{display:flex;flex-wrap:wrap;gap:4px}
+.emojiopts button{background:none;border:1px solid transparent;border-radius:8px;font-size:1.25rem;width:36px;height:36px;cursor:pointer;padding:0}
+.emojiopts button:hover{border-color:var(--line);background:var(--bg)}
+.daychips{display:flex;gap:6px;flex-wrap:wrap}
+.daychips .fchip{width:40px;padding:6px 0;text-align:center}
+.hchip{--hc:#5BC08F;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 14px 6px 6px;cursor:pointer;font-weight:500}
+.hchip .he{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--hc)}
+.hchip.on{border-color:var(--hc)}
+.hchip.on .he{background:var(--hc)}
+.hchip.on span:last-child{text-decoration:line-through;color:var(--muted)}
 nav.tabs svg,.ls{display:none}
 .fab{display:none;position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:#1C1C1E;font-size:2rem;font-weight:500;line-height:1;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.35);z-index:31;cursor:pointer}
 @media (max-width:700px){
@@ -333,6 +371,8 @@ nav.tabs svg,.ls{display:none}
   .lc-num{font-size:.8rem}
   .lc-fmt{display:none}
   .agenda-cal{order:-1}
+  .hb-day .c{width:30px;height:30px}
+  .seg{margin-bottom:12px}
   .notes{columns:2;column-gap:10px}
   .note{margin-bottom:10px;padding:12px 13px}
   .nbar{width:100%}
@@ -421,6 +461,10 @@ nav.tabs svg,.ls{display:none}
         </section>
       </div>
       <div>
+        <section class="panel" aria-labelledby="hOvHabits" id="ovHabitsPanel">
+          <div class="phead"><h2 id="hOvHabits">Abitudini di oggi</h2><a class="more" href="#abitudini">Tutte →</a></div>
+          <div class="chips" id="ovHabits"></div>
+        </section>
         <section class="panel" aria-labelledby="hOvTasks">
           <div class="phead"><h2 id="hOvTasks">Da fare</h2><a class="more" href="#agenda">Agenda →</a></div>
           <ul class="tasks" id="ovTasks"></ul>
@@ -584,6 +628,7 @@ nav.tabs svg,.ls{display:none}
 
   <!-- ============ AGENDA ============ -->
   <main id="v-agenda" hidden>
+    <nav class="seg" aria-label="Agenda"><a href="#agenda" aria-current="page">Da fare</a><a href="#abitudini">Abitudini</a></nav>
     <div class="hero" style="margin-bottom:22px">
       <div class="big" style="font-size:clamp(2rem,7vw,3.2rem)">Agenda</div>
       <div class="caption" id="aCaption" style="margin-bottom:0"></div>
@@ -625,6 +670,37 @@ nav.tabs svg,.ls{display:none}
           </div>
           <div class="cal" id="cal"></div>
           <p class="sub" style="margin:12px 0 0">Tocca un giorno per vedere le sue attività e aggiungerne di nuove in quella data.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ ABITUDINI ============ -->
+  <main id="v-abitudini" hidden>
+    <nav class="seg" aria-label="Agenda"><a href="#agenda">Da fare</a><a href="#abitudini" aria-current="page">Abitudini</a></nav>
+    <div class="hero" style="margin-bottom:22px">
+      <div class="big" style="font-size:clamp(2rem,7vw,3.2rem)">Abitudini</div>
+      <div class="caption" id="hbCaption" style="margin-bottom:0"></div>
+    </div>
+    <div class="grid">
+      <div><div id="hbList"></div></div>
+      <div>
+        <section class="panel" aria-labelledby="hHabitForm">
+          <h2 id="hHabitForm">Nuova abitudine</h2>
+          <div class="fields">
+            <div class="full"><label for="hbName">Abitudine</label><input id="hbName" placeholder="Es. Bere 2 litri d’acqua, Leggere 20 minuti" maxlength="60"></div>
+            <div class="full"><label for="hbEmoji">Simbolo</label>
+              <div class="emojirow"><input id="hbEmoji" maxlength="4" value="✅" aria-label="Emoji dell’abitudine"><div id="hbEmojiOpts" class="emojiopts"></div></div></div>
+            <div class="full"><label>Colore</label><div class="swatches" id="hbColors" role="radiogroup" aria-label="Colore dell’abitudine"></div></div>
+            <div class="full"><label for="hbFreq">Frequenza</label>
+              <select id="hbFreq"><option value="daily">Ogni giorno</option><option value="days">In giorni precisi</option><option value="weekly">Un certo numero di volte a settimana</option></select></div>
+            <div class="full" id="hbDaysWrap" hidden><label>Giorni</label><div class="daychips" id="hbDays"></div></div>
+            <div class="full" id="hbTargetWrap" hidden><label for="hbTarget">Quante volte a settimana</label>
+              <select id="hbTarget"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select></div>
+          </div>
+          <button class="primary" id="hbSave">Aggiungi abitudine</button>
+          <div class="footer-actions" id="hbEditActions" hidden><button class="link" id="hbCancel">Annulla modifica</button></div>
+          <div class="err" id="hbErr" role="alert"></div>
         </section>
       </div>
     </div>
@@ -728,7 +804,7 @@ nav.tabs svg,.ls{display:none}
     if(x.overrides && typeof x.overrides === "object") Object.keys(x.overrides).forEach(k => { ov[k] = Object.assign({}, x.overrides[k]); });
     return {start: Number(x.start) || 0, useNW: x.useNW !== false, startDate: sd, months: Math.min(120, Math.max(1, Number(x.months) || 12)), rate: Number(x.rate) || 0, items, overrides: ov};
   }
-  let state = {tx:[], budgets:{}, goals:[], nw:[], nwHist:[], sim:normSim(), cards:[], tasks:[], prefs:{}, notes:[]};
+  let state = {tx:[], budgets:{}, goals:[], nw:[], nwHist:[], sim:normSim(), cards:[], tasks:[], prefs:{}, notes:[], habits:[]};
   let kind = "out", nwKind = "asset";
   let view = new Date(); view.setDate(1);
   let saving = false, pending = false;
@@ -747,7 +823,8 @@ nav.tabs svg,.ls{display:none}
       cards: Array.isArray(d.cards) ? d.cards.map(c => Object.assign({}, c)) : [],
       tasks: Array.isArray(d.tasks) ? d.tasks.map(t => Object.assign({}, t)) : [],
       prefs: Object.assign({}, d.prefs || {}),
-      notes: Array.isArray(d.notes) ? d.notes.map(n => Object.assign({}, n)) : []
+      notes: Array.isArray(d.notes) ? d.notes.map(n => Object.assign({}, n)) : [],
+      habits: Array.isArray(d.habits) ? d.habits.map(h => Object.assign({}, h, {log: Object.assign({}, h.log || {}), days: Array.isArray(h.days) ? h.days.slice() : [0,1,2,3,4]})) : []
     };
   }
 
@@ -964,7 +1041,7 @@ nav.tabs svg,.ls{display:none}
   $("undoBtn").addEventListener("click", ()=>{ if(undoFn){ undoFn(); undoFn = null; } $("toast").classList.remove("show"); });
 
   // ---------- Navigazione ----------
-  const VIEWS = ["panoramica","movimenti","carte","patrimonio","agenda","note"];
+  const VIEWS = ["panoramica","movimenti","carte","patrimonio","agenda","abitudini","note"];
   function route(){
     const h = location.hash.replace("#","");
     currentView = VIEWS.includes(h) ? h : "panoramica";
@@ -973,7 +1050,7 @@ nav.tabs svg,.ls{display:none}
     $("monthNav").hidden = locked || !["panoramica","movimenti"].includes(currentView);
     $("fab").hidden = locked || currentView !== "panoramica" && currentView !== "patrimonio";
     document.querySelectorAll("nav.tabs a").forEach(a => {
-      if(a.dataset.view === currentView) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+      if(a.dataset.view === currentView || (currentView === "abitudini" && a.dataset.view === "agenda")) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
     });
     renderAll();
   }
@@ -986,6 +1063,7 @@ nav.tabs svg,.ls{display:none}
     else if(currentView === "carte") renderCards();
     else if(currentView === "patrimonio") renderNW();
     else if(currentView === "agenda") renderAgenda();
+    else if(currentView === "abitudini") renderHabits();
     else renderNotes();
   }
 
@@ -1479,7 +1557,23 @@ nav.tabs svg,.ls{display:none}
     soon.slice(0,5).forEach(t => tb.appendChild(taskRow(t, {noDel:true})));
     if(!soon.length){ const li = document.createElement("li"); li.className = "empty"; li.style.display = "block"; li.innerHTML = 'Niente da fare. <a class="more" href="#agenda">Aggiungi un’attività</a>.'; tb.appendChild(li); }
 
-    $("ovEmpty").hidden = !!(state.tx.length || state.nw.length || state.cards.length || state.tasks.length || state.notes.length);
+    // Abitudini di oggi
+    const hb = $("ovHabits"); hb.innerHTML = "";
+    const dueH = state.habits.filter(dueToday);
+    $("ovHabitsPanel").hidden = !state.habits.length;
+    if(state.habits.length && !dueH.length) hb.innerHTML = '<p class="empty" style="padding:0">Niente in programma oggi.</p>';
+    dueH.forEach(h => {
+      const on = !!h.log[todayISO()];
+      const b = document.createElement("button"); b.className = "hchip" + (on ? " on" : ""); b.style.setProperty("--hc", h.color || "#5BC08F");
+      b.setAttribute("aria-pressed", String(on));
+      const e = document.createElement("span"); e.className = "he"; e.textContent = h.emoji || "✅";
+      const n = document.createElement("span"); n.textContent = h.name;
+      b.append(e, n);
+      b.addEventListener("click", ()=> toggleHabit(h, todayISO()));
+      hb.appendChild(b);
+    });
+
+    $("ovEmpty").hidden = !!(state.tx.length || state.nw.length || state.cards.length || state.tasks.length || state.notes.length || state.habits.length);
   }
 
   // ================= SIMULAZIONE =================
@@ -1779,6 +1873,19 @@ nav.tabs svg,.ls{display:none}
       tx, nw, nwHist: hist,
       budgets: {"Spesa alimentare":280, "Ristoranti e bar":80, "Svago":60, "Trasporti":70},
       goals: [],
+      habits: (()=>{
+        const mk = (name, emoji, color, freq, extra, pr) => {
+          const h = Object.assign({id:uid(), name, emoji, color, freq, days:[0,1,2,3,4], target:3, log:{}, createdDay:addDays(todayISO(), -84), created:Date.now()}, extra);
+          for(let k = 84; k >= 1; k--){ const d = addDays(todayISO(), -k); const r = ((k * 37 + name.length * 11) % 100) / 100; if(isScheduled(h, d) && r < pr) h.log[d] = 1; }
+          return h;
+        };
+        const water = mk("Bere 2 litri d’acqua", "💧", "#6FA8DC", "daily", {}, .82);
+        for(let k = 1; k <= 6; k++) water.log[addDays(todayISO(), -k)] = 1;
+        const gym = mk("Allenamento", "🏋️", "#E57D70", "weekly", {target:3, days:[]}, .45);
+        const read = mk("Leggere 20 minuti", "📖", "#E0B357", "days", {days:[0,1,2,3,4]}, .7);
+        read.log[todayISO()] = 1;
+        return [water, read, gym];
+      })(),
       notes: [
         {id:uid(), title:"Idee regalo", body:"Mamma: sciarpa di lana\nLuca: libro di cucina\nMarta: buono per la spa", color:"#C98BD8", pinned:true, created:Date.now()-86400000*5, updated:Date.now()-86400000*2},
         {id:uid(), title:"Codici utili", body:"Contatore luce: POD IT001E…\nCodice cliente gas: 4471…", color:"#E0B357", pinned:false, created:Date.now()-86400000*20, updated:Date.now()-86400000*9},
@@ -1812,7 +1919,7 @@ nav.tabs svg,.ls{display:none}
     toast("Dati di esempio caricati: puoi azzerarli dal fondo della pagina");
   }
   function resetAll(){
-    if(!confirm("Vuoi davvero cancellare tutti i movimenti, le carte, il patrimonio, l’agenda e le note? L’operazione non si può annullare. Ti conviene prima scaricare un backup.")) return;
+    if(!confirm("Vuoi davvero cancellare tutti i movimenti, le carte, il patrimonio, l’agenda, le abitudini e le note? L’operazione non si può annullare. Ti conviene prima scaricare un backup.")) return;
     state = normalize({}); save(); renderAll();
     toast("Tutti i dati sono stati cancellati");
   }
@@ -2392,7 +2499,208 @@ nav.tabs svg,.ls{display:none}
     setBody(nv, at + 2, at + 2);
   }
 
+  // ================= ABITUDINI =================
+  const HB_COLORS = ["#5BC08F","#6FA8DC","#E0B357","#E57D70","#C98BD8","#1F9AA8"];
+  const HB_EMOJI = ["✅","💧","🏃","🏋️","🧘","📖","🥗","😴","🚭","🍷","🍺","💊","🦷","🚶","✍️","🎸","🧹","💰"];
+  const WD_LETTERS = ["L","M","M","G","V","S","D"];
+  const WD_NAMES = ["lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica"];
+  let hbColor = HB_COLORS[0], hbDaysSel = [0,1,2,3,4], editingHabit = null, openHabit = null;
+
+  const wdIdx = iso => (isoD(iso).getDay() + 6) % 7;
+  const weekStart = iso => addDays(iso, -wdIdx(iso));
+  function isScheduled(h, iso){ return h.freq === "days" ? (h.days || []).includes(wdIdx(iso)) : true; }
+  function weekCount(h, ws){ let c = 0; for(let i = 0; i < 7; i++) if(h.log[addDays(ws, i)]) c++; return c; }
+  function freqLabel(h){
+    if(h.freq === "days"){
+      const d = (h.days || []).slice().sort();
+      if(d.join() === "0,1,2,3,4") return "dal lunedì al venerdì";
+      if(d.join() === "5,6") return "nel weekend";
+      return d.map(i => WD_NAMES[i].slice(0,3)).join(", ");
+    }
+    if(h.freq === "weekly") return h.target + (h.target === 1 ? " volta" : " volte") + " a settimana";
+    return "ogni giorno";
+  }
+  function habitStreak(h){
+    const today = todayISO(), start = h.createdDay || today;
+    if(h.freq === "weekly"){
+      let ws = weekStart(today), n = 0;
+      if(weekCount(h, ws) < h.target) ws = addDays(ws, -7);
+      while(ws >= weekStart(start) && weekCount(h, ws) >= h.target && n < 600){ n++; ws = addDays(ws, -7); }
+      return {n, unit: n === 1 ? "settimana" : "settimane"};
+    }
+    let d = h.log[today] ? today : addDays(today, -1), n = 0;
+    while(d >= start && n < 3000){
+      if(isScheduled(h, d)){ if(h.log[d]) n++; else break; }
+      d = addDays(d, -1);
+    }
+    return {n, unit: n === 1 ? "giorno" : "giorni"};
+  }
+  function habitBest(h){
+    const today = todayISO(), start = h.createdDay || today;
+    let best = 0, cur = 0;
+    if(h.freq === "weekly"){
+      for(let ws = weekStart(start); ws <= weekStart(today); ws = addDays(ws, 7)){
+        if(weekCount(h, ws) >= h.target){ cur++; best = Math.max(best, cur); } else if(ws !== weekStart(today)) cur = 0;
+      }
+      return best;
+    }
+    for(let d = start; d <= today; d = addDays(d, 1)){
+      if(!isScheduled(h, d)) continue;
+      if(h.log[d]){ cur++; best = Math.max(best, cur); } else if(d !== today) cur = 0;
+    }
+    return best;
+  }
+  function habitRate(h){
+    const today = todayISO(), start = h.createdDay || today;
+    if(h.freq === "weekly"){
+      let got = 0, want = 0;
+      for(let k = 1; k <= 4; k++){ const ws = addDays(weekStart(today), -7 * k); if(addDays(ws, 6) < start) break; got += Math.min(weekCount(h, ws), h.target); want += h.target; }
+      return want ? Math.round(got / want * 100) : null;
+    }
+    let got = 0, want = 0;
+    for(let k = 0; k < 30; k++){
+      const d = addDays(today, -k); if(d < start) break;
+      if(!isScheduled(h, d)) continue;
+      if(k === 0 && !h.log[d]) continue;
+      want++; if(h.log[d]) got++;
+    }
+    return want ? Math.round(got / want * 100) : null;
+  }
+  function dueToday(h){
+    const t = todayISO();
+    if(h.freq === "weekly") return !!h.log[t] || weekCount(h, weekStart(t)) < h.target;
+    return isScheduled(h, t);
+  }
+  function toggleHabit(h, iso){
+    if(h.log[iso]) delete h.log[iso]; else h.log[iso] = 1;
+    save(); renderAll();
+  }
+
+  function renderHabits(){
+    const t = todayISO();
+    const due = state.habits.filter(dueToday), done = due.filter(h => h.log[t]).length;
+    $("hbCaption").textContent = !state.habits.length ? "Costruisci buone abitudini un giorno alla volta" :
+      (due.length ? done + " di " + due.length + " fatte oggi" : "Niente in programma oggi") + (done && done === due.length ? " · ottimo!" : "");
+    const box = $("hbList"); box.innerHTML = "";
+    if(!state.habits.length){
+      const p = document.createElement("p"); p.className = "empty";
+      p.textContent = "Nessuna abitudine ancora. Aggiungine una con il modulo: ogni giorno segnerai se l’hai fatta e vedrai crescere la tua serie.";
+      box.appendChild(p);
+    }
+    state.habits.forEach(h => box.appendChild(habitCard(h)));
+    if(!editingHabit) renderHabitForm();
+  }
+  function habitCard(h){
+    const t = todayISO(), st = habitStreak(h);
+    const el = document.createElement("article"); el.className = "habit"; el.style.setProperty("--hc", h.color || HB_COLORS[0]);
+    const doneToday = !!h.log[t];
+    el.innerHTML = '<div class="hb-top"><button class="hb-today"></button><div class="hb-info"><div class="hb-name"></div><div class="hb-sub"></div></div><button class="del hb-more" aria-expanded="false">⋯</button></div><div class="hb-week"></div><div class="hb-detail" hidden></div>';
+    const tb = el.querySelector(".hb-today"); tb.textContent = h.emoji || "✅";
+    tb.setAttribute("aria-pressed", String(doneToday));
+    tb.setAttribute("aria-label", (doneToday ? "Togli la spunta di oggi: " : "Segna come fatta oggi: ") + h.name);
+    tb.addEventListener("click", ()=> toggleHabit(h, t));
+    el.querySelector(".hb-name").textContent = h.name;
+    el.querySelector(".hb-sub").textContent = freqLabel(h) + (st.n ? " · 🔥 " + st.n + " " + st.unit : "") +
+      (h.freq === "weekly" ? " · questa settimana " + weekCount(h, weekStart(t)) + "/" + h.target : "");
+    const wk = el.querySelector(".hb-week");
+    for(let k = 6; k >= 0; k--){
+      const d = addDays(t, -k), on = !!h.log[d], sched = isScheduled(h, d);
+      const b = document.createElement("button"); b.className = "hb-day" + (on ? " on" : "") + (sched ? "" : " off") + (k === 0 ? " now" : "");
+      b.innerHTML = '<span class="l"></span><span class="c"></span>';
+      b.querySelector(".l").textContent = WD_LETTERS[wdIdx(d)];
+      b.querySelector(".c").textContent = isoD(d).getDate();
+      b.setAttribute("aria-pressed", String(on));
+      b.setAttribute("aria-label", WDL.format(isoD(d)) + (on ? ", fatta" : ", non fatta"));
+      b.addEventListener("click", ()=> toggleHabit(h, d));
+      wk.appendChild(b);
+    }
+    const more = el.querySelector(".hb-more"), det = el.querySelector(".hb-detail");
+    more.setAttribute("aria-label", "Dettagli di " + h.name);
+    const fill = () => {
+      det.innerHTML = "";
+      const rate = habitRate(h), best = habitBest(h), total = Object.keys(h.log).length;
+      const stats = document.createElement("div"); stats.className = "hb-stats";
+      [[rate === null ? "—" : rate + "%", h.freq === "weekly" ? "ultime 4 settimane" : "ultimi 30 giorni"], [best, h.freq === "weekly" ? "record settimane" : "record giorni"], [total, "volte in totale"]]
+        .forEach(([v, l]) => { const s = document.createElement("div"); s.innerHTML = '<b></b><span></span>'; s.querySelector("b").textContent = v; s.querySelector("span").textContent = l; stats.appendChild(s); });
+      det.appendChild(stats);
+      const hm = document.createElement("div"); hm.className = "heat"; hm.setAttribute("aria-label", "Ultime 18 settimane");
+      const first = addDays(weekStart(t), -7 * 17);
+      for(let w = 0; w < 18; w++) for(let r = 0; r < 7; r++){
+        const d = addDays(first, w * 7 + r), c = document.createElement("span");
+        c.style.gridColumn = w + 1; c.style.gridRow = r + 1;
+        if(d > t) c.className = "fut"; else if(h.log[d]) c.className = "on"; else if(!isScheduled(h, d)) c.className = "off";
+        c.title = WDL.format(isoD(d)) + (h.log[d] ? ": fatta" : "");
+        hm.appendChild(c);
+      }
+      det.appendChild(hm);
+      const act = document.createElement("div"); act.className = "footer-actions";
+      const e1 = document.createElement("button"); e1.className = "link"; e1.textContent = "Modifica"; e1.addEventListener("click", ()=> editHabit(h));
+      const e2 = document.createElement("button"); e2.className = "link"; e2.textContent = "Elimina";
+      e2.addEventListener("click", ()=>{
+        if(!confirm("Eliminare l’abitudine «" + h.name + "» e tutto il suo storico?")) return;
+        const idx = state.habits.indexOf(h); state.habits.splice(idx, 1); openHabit = null; save(); renderAll();
+        toast("Abitudine eliminata", ()=>{ state.habits.splice(idx, 0, h); save(); renderAll(); });
+      });
+      act.append(e1, e2); det.appendChild(act);
+    };
+    const setOpen = o => { det.hidden = !o; more.setAttribute("aria-expanded", String(o)); if(o) fill(); };
+    more.addEventListener("click", ()=>{ openHabit = det.hidden ? h.id : null; setOpen(!det.hidden ? false : true); });
+    if(openHabit === h.id) setOpen(true);
+    return el;
+  }
+  function renderHabitForm(){
+    const cb = $("hbColors"); cb.innerHTML = "";
+    HB_COLORS.forEach(col => {
+      const s = document.createElement("button"); s.type = "button"; s.className = "sw"; s.style.background = col;
+      s.setAttribute("role","radio"); s.setAttribute("aria-checked", String(col === hbColor)); s.setAttribute("aria-label","Colore " + col);
+      s.addEventListener("click", ()=>{ hbColor = col; renderHabitForm(); });
+      cb.appendChild(s);
+    });
+    const db = $("hbDays"); db.innerHTML = "";
+    WD_LETTERS.forEach((l, i) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "fchip"; b.textContent = l;
+      b.setAttribute("aria-pressed", String(hbDaysSel.includes(i))); b.setAttribute("aria-label", WD_NAMES[i]);
+      b.addEventListener("click", ()=>{ hbDaysSel = hbDaysSel.includes(i) ? hbDaysSel.filter(x => x !== i) : hbDaysSel.concat(i); renderHabitForm(); });
+      db.appendChild(b);
+    });
+    const f = $("hbFreq").value;
+    $("hbDaysWrap").hidden = f !== "days"; $("hbTargetWrap").hidden = f !== "weekly";
+  }
+  function saveHabit(){
+    const name = $("hbName").value.trim();
+    if(!name){ $("hbErr").textContent = "Scrivi il nome dell’abitudine."; $("hbName").focus(); return; }
+    const freq = $("hbFreq").value;
+    if(freq === "days" && !hbDaysSel.length){ $("hbErr").textContent = "Scegli almeno un giorno."; return; }
+    $("hbErr").textContent = "";
+    const data = {name, emoji: $("hbEmoji").value.trim() || "✅", color: hbColor, freq, days: hbDaysSel.slice().sort(), target: Number($("hbTarget").value) || 3};
+    if(editingHabit){ Object.assign(editingHabit, data); toast("Abitudine aggiornata"); }
+    else state.habits.push(Object.assign({id:uid(), log:{}, createdDay: todayISO(), created: Date.now()}, data));
+    resetHabitForm(); save(); renderAll();
+  }
+  function resetHabitForm(){
+    editingHabit = null;
+    $("hbName").value = ""; $("hbEmoji").value = "✅"; $("hbFreq").value = "daily"; $("hbTarget").value = "3";
+    hbDaysSel = [0,1,2,3,4]; hbColor = HB_COLORS[state.habits.length % HB_COLORS.length];
+    $("hbSave").textContent = "Aggiungi abitudine"; $("hbEditActions").hidden = true; $("hHabitForm").textContent = "Nuova abitudine"; $("hbErr").textContent = "";
+    renderHabitForm();
+  }
+  function editHabit(h){
+    editingHabit = h;
+    $("hbName").value = h.name; $("hbEmoji").value = h.emoji || "✅"; $("hbFreq").value = h.freq || "daily"; $("hbTarget").value = String(h.target || 3);
+    hbDaysSel = (h.days || [0,1,2,3,4]).slice(); hbColor = h.color || HB_COLORS[0];
+    $("hbSave").textContent = "Salva modifiche"; $("hbEditActions").hidden = false; $("hHabitForm").textContent = "Modifica " + h.name;
+    renderHabitForm();
+    $("hHabitForm").scrollIntoView({behavior:"smooth", block:"start"}); $("hbName").focus({preventScroll:true});
+  }
+
   // ---------- Eventi ----------
+  // Abitudini
+  HB_EMOJI.forEach(em => { const b = document.createElement("button"); b.type = "button"; b.textContent = em; b.setAttribute("aria-label","Usa " + em); b.addEventListener("click", ()=>{ $("hbEmoji").value = em; }); $("hbEmojiOpts").appendChild(b); });
+  $("hbFreq").addEventListener("change", renderHabitForm);
+  $("hbSave").addEventListener("click", saveHabit);
+  $("hbName").addEventListener("keydown", e => { if(e.key === "Enter") saveHabit(); });
+  $("hbCancel").addEventListener("click", resetHabitForm);
+
   // Elenchi nelle note
   ["neBody"].forEach(id => {
     const ta = $(id);
