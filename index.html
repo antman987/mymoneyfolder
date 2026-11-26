@@ -343,6 +343,43 @@ section.panel .tasks{background:none;border:0;padding:0;border-radius:0}
 .hchip.on{border-color:var(--hc)}
 .hchip.on .he{background:var(--hc)}
 .hchip.on span:last-child{text-decoration:line-through;color:var(--muted)}
+.xl-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.xl-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.xl-bar{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px 12px 0 0;padding:6px 8px;border-bottom:0}
+.xl-addr{min-width:64px;font-weight:700;font-size:.9rem;padding:6px 8px;background:var(--bg);border-radius:6px;text-align:center}
+.xl-fx{color:var(--muted);font-style:italic;font-weight:700}
+.xl-input{flex:1;min-width:0;padding:8px 10px;font-variant-numeric:normal}
+.xl-tools{display:flex;gap:6px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-top:0;border-bottom:0;padding:0 8px 8px}
+.xl-tools button{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:5px 11px;cursor:pointer;font-size:.9rem;min-width:36px}
+.xl-tools button[aria-pressed="true"]{background:var(--ink);color:var(--btn-ink);border-color:var(--ink)}
+.xl-wrap{overflow:auto;max-height:min(68vh,720px);border:1px solid var(--line);border-radius:0 0 12px 12px;background:var(--surface);outline:none;-webkit-user-select:none;user-select:none}
+.xl-wrap:focus-visible{box-shadow:0 0 0 2px var(--accent)}
+table.xl{border-collapse:separate;border-spacing:0;font-size:.92rem;table-layout:fixed}
+table.xl th{position:sticky;top:0;z-index:2;background:var(--bg);color:var(--muted);font-weight:500;font-size:.8rem;height:30px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:108px;width:108px}
+table.xl tbody th{position:sticky;left:0;z-index:1;min-width:44px;width:44px;text-align:center}
+table.xl th.xl-corner{left:0;z-index:3;min-width:44px;width:44px}
+table.xl th.hl{color:var(--accent);background:color-mix(in srgb, var(--accent) 12%, var(--bg))}
+table.xl td{height:30px;max-width:108px;padding:0 8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:cell}
+table.xl td.n{text-align:right}
+table.xl td.b{font-weight:700}
+table.xl td.e{color:var(--out);font-weight:600}
+table.xl td.in{background:color-mix(in srgb, var(--accent) 13%, transparent)}
+table.xl td.sel{box-shadow:inset 0 0 0 2px var(--accent)}
+.xl-help{margin-top:12px}
+.ovgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.ovgrid > *{margin:0 !important}
+.ovgrid .wide{grid-column:1/-1}
+.ov-cust{margin-left:auto}
+.homelist{list-style:none;margin:0;padding:0}
+.homelist li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.homelist li:first-child{border-top:0}
+.homelist .chk{font-size:.98rem;color:var(--ink);align-items:center}
+.homelist .chk input{margin:0}
+.hl-btns{display:flex;gap:2px}
+.hl-btns button:disabled{opacity:.25;cursor:default}
+.addmov-toggle{display:none}
+@media (min-width:821px){.movgrid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
+#segSoldi{margin-bottom:16px}
 nav.tabs svg,.ls{display:none}
 .fab{display:none;position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:#1C1C1E;font-size:2rem;font-weight:500;line-height:1;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.35);z-index:31;cursor:pointer}
 @media (max-width:700px){
@@ -371,6 +408,20 @@ nav.tabs svg,.ls{display:none}
   .lc-num{font-size:.8rem}
   .lc-fmt{display:none}
   .agenda-cal{order:-1}
+  .ovgrid{grid-template-columns:minmax(0,1fr);gap:20px}
+  .month .label{min-width:120px}
+  .ov-cust{font-size:1.25rem;text-decoration:none;padding:6px}
+  .ovc-t{display:none}
+  .mov-form{order:-1}
+  .addmov-toggle{display:block;width:100%;background:none;border:0;padding:4px 0;text-align:left;font-weight:700;font-size:1.05rem;cursor:pointer;color:var(--accent)}
+  .addmov h2{display:none}
+  .addmov:not(.open){padding:12px 16px}
+  .addmov:not(.open) .addmov-body{display:none}
+  .addmov.open .addmov-toggle{text-align:right;font-size:.9rem;font-weight:500;color:var(--muted);margin-bottom:4px}
+  table.xl th,table.xl td{min-width:100px;width:100px;max-width:100px}
+  table.xl tbody th,table.xl th.xl-corner{min-width:36px;width:36px}
+  .xl-input{font-size:16px}
+  .xl-help{font-size:.82rem}
   .hb-day .c{width:30px;height:30px}
   .seg{margin-bottom:12px}
   .notes{columns:2;column-gap:10px}
@@ -404,11 +455,10 @@ nav.tabs svg,.ls{display:none}
   </header>
   <nav class="tabs" id="tabs" aria-label="Sezioni">
     <a href="#panoramica" data-view="panoramica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span class="lf">Panoramica</span><span class="ls">Home</span></a>
-    <a href="#movimenti" data-view="movimenti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg><span class="lf">Movimenti e budget</span><span class="ls">Movimenti</span></a>
+    <a href="#movimenti" data-view="movimenti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5h14.5a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5.5A2 2 0 0 1 3.5 18.5V6a2 2 0 0 1 2-2H17v3.5"/><path d="M16 14h.01"/></svg><span class="lf">Soldi</span><span class="ls">Soldi</span></a>
     <a href="#carte" data-view="carte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 15h4"/></svg><span class="lf">Carte fedeltà</span><span class="ls">Carte</span></a>
-    <a href="#patrimonio" data-view="patrimonio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 20.5h18"/></svg><span class="lf">Patrimonio netto</span><span class="ls">Patrimonio</span></a>
     <a href="#agenda" data-view="agenda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="m9 15 2 2 4-4"/></svg><span class="lf">Agenda</span><span class="ls">Agenda</span></a>
-    <a href="#note" data-view="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h8.5L19 8v12.5H6z"/><path d="M14 3.5V8h5"/><path d="M9 12.5h7M9 16h5"/></svg><span class="lf">Note</span><span class="ls">Note</span></a>
+    <a href="#fogli" data-view="fogli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M3.5 9h17M3.5 14.5h17M9.5 4v16"/></svg><span class="lf">Fogli</span><span class="ls">Fogli</span></a>
   </nav>
 
   <!-- ============ ACCESSO ============ -->
@@ -428,10 +478,12 @@ nav.tabs svg,.ls{display:none}
     </section>
   </main>
 
+  <nav class="seg" id="segSoldi" aria-label="Soldi" hidden><a href="#movimenti" data-v="movimenti">Movimenti</a><a href="#budget" data-v="budget">Budget</a><a href="#patrimonio" data-v="patrimonio">Patrimonio</a></nav>
   <div class="month" id="monthNav" hidden>
     <button id="prev" aria-label="Mese precedente">‹</button>
     <div class="label" id="monthLabel"></div>
     <button id="next" aria-label="Mese successivo">›</button>
+    <button class="link ov-cust" id="ovCustomize" hidden aria-label="Personalizza la panoramica">⚙<span class="ovc-t"> Personalizza</span></button>
   </div>
 
   <!-- ============ PANORAMICA ============ -->
@@ -443,42 +495,39 @@ nav.tabs svg,.ls{display:none}
       </div>
       <button class="primary" id="demoBtn">Carica dati di esempio</button>
     </section>
-    <div class="kpis">
-      <a class="kpi" href="#patrimonio"><div class="kl"><span>Patrimonio netto</span><button class="eye" id="kNwEye" type="button" aria-pressed="false" aria-label="Nascondi il patrimonio netto"></button></div><div class="kv" id="kNw">€ 0,00</div><div class="ks" id="kNwSub"></div></a>
-      <a class="kpi" href="#movimenti"><div class="kl">Entrate del mese</div><div class="kv pos" id="kIn">€ 0,00</div><div class="ks" id="kInSub"></div></a>
-      <a class="kpi" href="#movimenti"><div class="kl">Uscite del mese</div><div class="kv neg" id="kOut">€ 0,00</div><div class="ks" id="kOutSub"></div></a>
-      <div class="kpi"><div class="kl">Tasso di risparmio</div><div class="kv" id="kRate">—</div><div class="ks" id="kRateSub"></div></div>
-    </div>
-    <div class="grid">
-      <div>
-        <section class="panel" aria-labelledby="hTrend">
-          <div class="phead"><h2 id="hTrend">Flusso di cassa, ultimi 6 mesi</h2></div>
-          <div class="chart" id="chart"></div>
-        </section>
-        <section class="panel" aria-labelledby="hRecent">
-          <div class="phead"><h2 id="hRecent">Ultimi movimenti</h2><a class="more" href="#movimenti">Vedi tutti →</a></div>
-          <ul class="tx" id="ovRecent"></ul>
-        </section>
+    <div class="ovgrid" id="ovGrid">
+      <div class="kpis wide" data-k="kpi">
+        <a class="kpi" href="#patrimonio"><div class="kl"><span>Patrimonio netto</span><button class="eye" id="kNwEye" type="button" aria-pressed="false" aria-label="Nascondi il patrimonio netto"></button></div><div class="kv" id="kNw">€ 0,00</div><div class="ks" id="kNwSub"></div></a>
+        <a class="kpi" href="#movimenti"><div class="kl">Entrate del mese</div><div class="kv pos" id="kIn">€ 0,00</div><div class="ks" id="kInSub"></div></a>
+        <a class="kpi" href="#movimenti"><div class="kl">Uscite del mese</div><div class="kv neg" id="kOut">€ 0,00</div><div class="ks" id="kOutSub"></div></a>
+        <div class="kpi"><div class="kl">Tasso di risparmio</div><div class="kv" id="kRate">—</div><div class="ks" id="kRateSub"></div></div>
       </div>
-      <div>
-        <section class="panel" aria-labelledby="hOvHabits" id="ovHabitsPanel">
-          <div class="phead"><h2 id="hOvHabits">Abitudini di oggi</h2><a class="more" href="#abitudini">Tutte →</a></div>
-          <div class="chips" id="ovHabits"></div>
-        </section>
-        <section class="panel" aria-labelledby="hOvTasks">
-          <div class="phead"><h2 id="hOvTasks">Da fare</h2><a class="more" href="#agenda">Agenda →</a></div>
-          <ul class="tasks" id="ovTasks"></ul>
-        </section>
-        <section class="panel" aria-labelledby="hWhere">
-          <div class="phead"><h2 id="hWhere">Dove vanno i soldi</h2><a class="more" href="#movimenti">Budget →</a></div>
-          <div id="ovCats"></div>
-        </section>
-        <section class="panel" aria-labelledby="hOvCards">
-          <div class="phead"><h2 id="hOvCards">Carte fedeltà</h2><a class="more" href="#carte">Tutte →</a></div>
-          <div class="chips" id="ovCards"></div>
-        </section>
-      </div>
+      <section class="panel" data-k="habits" aria-labelledby="hOvHabits" id="ovHabitsPanel">
+        <div class="phead"><h2 id="hOvHabits">Abitudini di oggi</h2><a class="more" href="#abitudini">Tutte →</a></div>
+        <div class="chips" id="ovHabits"></div>
+      </section>
+      <section class="panel" data-k="tasks" aria-labelledby="hOvTasks">
+        <div class="phead"><h2 id="hOvTasks">Da fare</h2><a class="more" href="#agenda">Agenda →</a></div>
+        <ul class="tasks" id="ovTasks"></ul>
+      </section>
+      <section class="panel" data-k="flow" aria-labelledby="hTrend">
+        <div class="phead"><h2 id="hTrend">Flusso di cassa, ultimi 6 mesi</h2></div>
+        <div class="chart" id="chart"></div>
+      </section>
+      <section class="panel" data-k="recent" aria-labelledby="hRecent">
+        <div class="phead"><h2 id="hRecent">Ultimi movimenti</h2><a class="more" href="#movimenti">Vedi tutti →</a></div>
+        <ul class="tx" id="ovRecent"></ul>
+      </section>
+      <section class="panel" data-k="where" aria-labelledby="hWhere">
+        <div class="phead"><h2 id="hWhere">Dove vanno i soldi</h2><a class="more" href="#budget">Budget →</a></div>
+        <div id="ovCats"></div>
+      </section>
+      <section class="panel" data-k="cards" aria-labelledby="hOvCards">
+        <div class="phead"><h2 id="hOvCards">Carte fedeltà</h2><a class="more" href="#carte">Tutte →</a></div>
+        <div class="chips" id="ovCards"></div>
+      </section>
     </div>
+    <p class="empty" id="ovAllHidden" hidden>Hai nascosto tutti i riquadri. Usa «⚙ Personalizza» per sceglierne qualcuno.</p>
   </main>
 
   <!-- ============ MOVIMENTI ============ -->
@@ -492,24 +541,8 @@ nav.tabs svg,.ls{display:none}
         <span class="o">Uscite <b id="totOut">€ 0,00</b></span>
       </div>
     </div>
-    <div class="grid">
-      <div>
-        <section class="panel" aria-labelledby="hAdd">
-          <h2 id="hAdd">Nuovo movimento</h2>
-          <div class="kind" role="group" aria-label="Tipo">
-            <button class="o" data-kind="out" aria-pressed="true">Uscita</button>
-            <button class="i" data-kind="in" aria-pressed="false">Entrata</button>
-          </div>
-          <div class="fields">
-            <div class="full"><label for="fAmount">Importo (€)</label><input id="fAmount" class="amount" inputmode="decimal" placeholder="0,00" autocomplete="off"></div>
-            <div><label for="fCat">Categoria</label><select id="fCat"></select></div>
-            <div><label for="fDate">Data</label><input id="fDate" type="date"></div>
-            <div class="full"><label for="fAcc">Conto o metodo di pagamento</label><select id="fAcc"></select></div>
-            <div class="full"><label for="fNote">Descrizione</label><input id="fNote" placeholder="Es. spesa al supermercato, bolletta luce" maxlength="80"></div>
-          </div>
-          <button class="primary" id="addBtn">Aggiungi uscita</button>
-          <div class="err" id="err" role="alert"></div>
-        </section>
+    <div class="grid movgrid">
+      <div class="mov-list">
         <section class="panel" aria-labelledby="hTx">
           <div class="listhead">
             <h2 id="hTx" style="margin:0">Movimenti del mese</h2>
@@ -522,14 +555,46 @@ nav.tabs svg,.ls{display:none}
           <ul class="tx" id="txList"></ul>
         </section>
       </div>
-      <div>
-        <section class="panel" aria-labelledby="hCat">
-          <h2 id="hCat">Spese per categoria</h2>
-          <p class="sub">Imposta un tetto mensile per tenere d’occhio ogni voce.</p>
-          <div id="cats"></div>
+      <div class="mov-form">
+        <section class="panel addmov" id="addMov" aria-labelledby="hAdd">
+          <button class="addmov-toggle" id="addMovToggle" aria-expanded="false">＋ Nuovo movimento</button>
+          <h2 id="hAdd">Nuovo movimento</h2>
+          <div class="addmov-body">
+            <div class="kind" role="group" aria-label="Tipo">
+              <button class="o" data-kind="out" aria-pressed="true">Uscita</button>
+              <button class="i" data-kind="in" aria-pressed="false">Entrata</button>
+            </div>
+            <div class="fields">
+              <div class="full"><label for="fAmount">Importo (€)</label><input id="fAmount" class="amount" inputmode="decimal" placeholder="0,00" autocomplete="off"></div>
+              <div><label for="fCat">Categoria</label><select id="fCat"></select></div>
+              <div><label for="fDate">Data</label><input id="fDate" type="date"></div>
+              <div class="full"><label for="fAcc">Conto o metodo di pagamento</label><select id="fAcc"></select></div>
+              <div class="full"><label for="fNote">Descrizione</label><input id="fNote" placeholder="Es. spesa al supermercato, bolletta luce" maxlength="80"></div>
+            </div>
+            <button class="primary" id="addBtn">Aggiungi uscita</button>
+            <div class="err" id="err" role="alert"></div>
+          </div>
         </section>
       </div>
     </div>
+  </main>
+
+  <!-- ============ BUDGET ============ -->
+  <main id="v-budget" hidden>
+    <div class="hero">
+      <div class="big" id="bRemain">€ 0,00</div>
+      <div class="caption" id="bCaption"></div>
+      <div class="split" aria-hidden="true" id="bSplit"><div class="fill" id="bBar" style="background:var(--accent)"></div></div>
+      <div class="legend" id="bLegend">
+        <span>Speso nelle categorie con tetto <b id="bSpent">€ 0,00</b></span>
+        <span>Tetti totali <b id="bTot">€ 0,00</b></span>
+      </div>
+    </div>
+    <section class="panel" aria-labelledby="hCat" style="max-width:760px">
+      <h2 id="hCat">Spese per categoria</h2>
+      <p class="sub">Imposta un tetto mensile per tenere d’occhio ogni voce. Le barre diventano rosse quando lo superi.</p>
+      <div id="cats"></div>
+    </section>
   </main>
 
   <!-- ============ CARTE FEDELTÀ ============ -->
@@ -628,7 +693,7 @@ nav.tabs svg,.ls{display:none}
 
   <!-- ============ AGENDA ============ -->
   <main id="v-agenda" hidden>
-    <nav class="seg" aria-label="Agenda"><a href="#agenda" aria-current="page">Da fare</a><a href="#abitudini">Abitudini</a></nav>
+    <nav class="seg" aria-label="Agenda"><a href="#agenda" aria-current="page">Da fare</a><a href="#abitudini">Abitudini</a><a href="#note">Note</a></nav>
     <div class="hero" style="margin-bottom:22px">
       <div class="big" style="font-size:clamp(2rem,7vw,3.2rem)">Agenda</div>
       <div class="caption" id="aCaption" style="margin-bottom:0"></div>
@@ -677,7 +742,7 @@ nav.tabs svg,.ls{display:none}
 
   <!-- ============ ABITUDINI ============ -->
   <main id="v-abitudini" hidden>
-    <nav class="seg" aria-label="Agenda"><a href="#agenda">Da fare</a><a href="#abitudini" aria-current="page">Abitudini</a></nav>
+    <nav class="seg" aria-label="Agenda"><a href="#agenda">Da fare</a><a href="#abitudini" aria-current="page">Abitudini</a><a href="#note">Note</a></nav>
     <div class="hero" style="margin-bottom:22px">
       <div class="big" style="font-size:clamp(2rem,7vw,3.2rem)">Abitudini</div>
       <div class="caption" id="hbCaption" style="margin-bottom:0"></div>
@@ -708,6 +773,7 @@ nav.tabs svg,.ls{display:none}
 
   <!-- ============ NOTE ============ -->
   <main id="v-note" hidden>
+    <nav class="seg" aria-label="Agenda"><a href="#agenda">Da fare</a><a href="#abitudini">Abitudini</a><a href="#note" aria-current="page">Note</a></nav>
     <div class="phead" style="margin-bottom:22px;align-items:flex-end;flex-wrap:wrap">
       <div>
         <div class="big" style="font-size:clamp(2rem,7vw,3.2rem)">Note</div>
@@ -721,6 +787,35 @@ nav.tabs svg,.ls{display:none}
     <div id="nList"></div>
   </main>
 
+  <!-- ============ FOGLI ============ -->
+  <main id="v-fogli" hidden>
+    <div class="xl-head">
+      <div class="big" style="font-size:clamp(2rem,7vw,3.2rem)">Fogli</div>
+      <div class="xl-tabs" id="xlTabs" role="tablist" aria-label="Fogli"></div>
+    </div>
+    <div class="xl-bar">
+      <div class="xl-addr" id="xlAddr">A1</div>
+      <span class="xl-fx" aria-hidden="true">fx</span>
+      <input id="xlInput" class="xl-input" autocomplete="off" spellcheck="false" aria-label="Contenuto della cella" placeholder="Scrivi un valore o una formula, es. =SOMMA(B2:B5)">
+    </div>
+    <div class="xl-tools" role="toolbar" aria-label="Strumenti del foglio">
+      <button type="button" id="xlBold" title="Grassetto (Ctrl+B)"><b>G</b></button>
+      <button type="button" id="xlEur" title="Formato euro">€</button>
+      <button type="button" id="xlPct" title="Formato percentuale">%</button>
+      <button type="button" id="xlSum" title="Somma automatica">Σ Somma</button>
+      <button type="button" id="xlClear" title="Svuota le celle selezionate">Svuota</button>
+    </div>
+    <div class="xl-wrap" id="xlWrap" tabindex="0" aria-label="Griglia del foglio"><table class="xl" id="xlGrid"></table></div>
+    <div class="footer-actions xl-foot">
+      <button class="link" id="xlAddRows">+ 10 righe</button>
+      <button class="link" id="xlAddCol">+ 1 colonna</button>
+      <button class="link" id="xlCsv">Esporta in CSV</button>
+      <button class="link" id="xlRename">Rinomina foglio</button>
+      <button class="link" id="xlDel">Elimina foglio</button>
+    </div>
+    <p class="sub xl-help">Formule disponibili: SOMMA, MEDIA, MIN, MAX, CONTA.NUMERI, CONTA.VALORI, SE, ARROTONDA, ABS (anche con i nomi inglesi). Separa gli argomenti con il punto e virgola, es. =SE(B2&gt;100;"alto";"ok"). Mentre scrivi una formula, tocca una cella per inserirne il riferimento. Puoi incollare celle copiate da Excel o Google Fogli.</p>
+  </main>
+
   <div class="bottom" id="bottom">
     <span class="who" id="who"></span>
     <button class="link" id="exportBtn">Esporta movimenti in CSV</button>
@@ -730,6 +825,14 @@ nav.tabs svg,.ls{display:none}
     <button class="link themeBtn">Passa al tema chiaro</button>
     <button class="link" id="logoutBtn" hidden>Esci</button>
     <input type="file" id="restoreFile" accept="application/json,.json" hidden>
+  </div>
+</div>
+<div class="sheet" id="homeEd" hidden role="dialog" aria-modal="true" aria-labelledby="homeEdT">
+  <div class="sheet-in" style="max-width:520px">
+    <div class="ne-top"><h2 id="homeEdT" style="margin:0">Personalizza la panoramica</h2><button class="cv-btn ne-done" id="homeEdDone">Fatto</button></div>
+    <p class="sub" style="margin:6px 0 12px">Scegli quali riquadri vedere e in che ordine. Le modifiche valgono su tutti i tuoi dispositivi.</p>
+    <ul class="homelist" id="homeList"></ul>
+    <div class="footer-actions"><button class="link" id="homeReset">Ripristina l’impostazione iniziale</button></div>
   </div>
 </div>
 <div class="sheet" id="noteEd" hidden role="dialog" aria-modal="true" aria-label="Nota">
@@ -804,7 +907,7 @@ nav.tabs svg,.ls{display:none}
     if(x.overrides && typeof x.overrides === "object") Object.keys(x.overrides).forEach(k => { ov[k] = Object.assign({}, x.overrides[k]); });
     return {start: Number(x.start) || 0, useNW: x.useNW !== false, startDate: sd, months: Math.min(120, Math.max(1, Number(x.months) || 12)), rate: Number(x.rate) || 0, items, overrides: ov};
   }
-  let state = {tx:[], budgets:{}, goals:[], nw:[], nwHist:[], sim:normSim(), cards:[], tasks:[], prefs:{}, notes:[], habits:[]};
+  let state = {tx:[], budgets:{}, goals:[], nw:[], nwHist:[], sim:normSim(), cards:[], tasks:[], prefs:{}, notes:[], habits:[], sheets:[]};
   let kind = "out", nwKind = "asset";
   let view = new Date(); view.setDate(1);
   let saving = false, pending = false;
@@ -824,7 +927,8 @@ nav.tabs svg,.ls{display:none}
       tasks: Array.isArray(d.tasks) ? d.tasks.map(t => Object.assign({}, t)) : [],
       prefs: Object.assign({}, d.prefs || {}),
       notes: Array.isArray(d.notes) ? d.notes.map(n => Object.assign({}, n)) : [],
-      habits: Array.isArray(d.habits) ? d.habits.map(h => Object.assign({}, h, {log: Object.assign({}, h.log || {}), days: Array.isArray(h.days) ? h.days.slice() : [0,1,2,3,4]})) : []
+      habits: Array.isArray(d.habits) ? d.habits.map(h => Object.assign({}, h, {log: Object.assign({}, h.log || {}), days: Array.isArray(h.days) ? h.days.slice() : [0,1,2,3,4]})) : [],
+      sheets: Array.isArray(d.sheets) ? d.sheets.map(x => Object.assign({}, x, {cells: Object.assign({}, x.cells || {}), fmt: JSON.parse(JSON.stringify(x.fmt || {})), rows: Number(x.rows) || 30, cols: Math.min(52, Number(x.cols) || 8)})) : []
     };
   }
 
@@ -900,7 +1004,8 @@ nav.tabs svg,.ls{display:none}
     $("bottom").hidden = !on;
     $("fab").hidden = !on;
     VIEWS.forEach(v => $("v-"+v).hidden = !on || v !== currentView);
-    $("monthNav").hidden = !on || !["panoramica","movimenti"].includes(currentView);
+    $("monthNav").hidden = !on || !MONTH_VIEWS.includes(currentView);
+    $("segSoldi").hidden = !on || !SOLDI_VIEWS.includes(currentView);
   }
 
   async function onSignedIn(s){
@@ -1041,16 +1146,21 @@ nav.tabs svg,.ls{display:none}
   $("undoBtn").addEventListener("click", ()=>{ if(undoFn){ undoFn(); undoFn = null; } $("toast").classList.remove("show"); });
 
   // ---------- Navigazione ----------
-  const VIEWS = ["panoramica","movimenti","carte","patrimonio","agenda","abitudini","note"];
+  const VIEWS = ["panoramica","movimenti","budget","patrimonio","carte","agenda","abitudini","note","fogli"];
+  const VIEW_GROUP = {budget:"movimenti", patrimonio:"movimenti", abitudini:"agenda", note:"agenda"};
+  const MONTH_VIEWS = ["panoramica","movimenti","budget"], SOLDI_VIEWS = ["movimenti","budget","patrimonio"];
   function route(){
     const h = location.hash.replace("#","");
     currentView = VIEWS.includes(h) ? h : "panoramica";
     const locked = !$("login").hidden;
     VIEWS.forEach(v => $("v-"+v).hidden = locked || v !== currentView);
-    $("monthNav").hidden = locked || !["panoramica","movimenti"].includes(currentView);
-    $("fab").hidden = locked || currentView !== "panoramica" && currentView !== "patrimonio";
+    $("monthNav").hidden = locked || !MONTH_VIEWS.includes(currentView);
+    $("segSoldi").hidden = locked || !SOLDI_VIEWS.includes(currentView);
+    document.querySelectorAll("#segSoldi a").forEach(a => { if(a.dataset.v === currentView) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+    $("ovCustomize").hidden = currentView !== "panoramica";
+    $("fab").hidden = locked || !["panoramica","patrimonio","budget"].includes(currentView);
     document.querySelectorAll("nav.tabs a").forEach(a => {
-      if(a.dataset.view === currentView || (currentView === "abitudini" && a.dataset.view === "agenda")) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+      if(a.dataset.view === (VIEW_GROUP[currentView] || currentView)) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
     });
     renderAll();
   }
@@ -1060,11 +1170,13 @@ nav.tabs svg,.ls{display:none}
     $("monthLabel").textContent = monthFmt.format(view);
     if(currentView === "panoramica") renderOverview();
     else if(currentView === "movimenti") renderMov();
+    else if(currentView === "budget") renderBudget();
     else if(currentView === "carte") renderCards();
     else if(currentView === "patrimonio") renderNW();
     else if(currentView === "agenda") renderAgenda();
     else if(currentView === "abitudini") renderHabits();
-    else renderNotes();
+    else if(currentView === "note") renderNotes();
+    else renderSheets();
   }
 
   // ================= MOVIMENTI =================
@@ -1083,7 +1195,7 @@ nav.tabs svg,.ls{display:none}
     const pct = i > 0 ? Math.min(100, o/i*100) : (o > 0 ? 100 : 0);
     $("spentBar").style.width = pct + "%";
     $("overBar").style.width = (i > 0 && o > i) ? Math.min(100,(o-i)/o*100) + "%" : "0";
-    renderCats(list); renderTx(list);
+    renderTx(list);
   }
 
   function renderCats(list){
@@ -1119,11 +1231,11 @@ nav.tabs svg,.ls{display:none}
       const doSave = ()=>{
         const v = parseAmount(row.querySelector(".budget input").value);
         if(isFinite(v) && v > 0) state.budgets[c] = v; else delete state.budgets[c];
-        save(); renderMov();
+        save(); renderAll();
       };
       row.querySelector(".save").addEventListener("click", doSave);
       row.querySelector(".budget input").addEventListener("keydown", e=>{ if(e.key==="Enter") doSave(); });
-      row.querySelector(".rm").addEventListener("click", ()=>{ delete state.budgets[c]; save(); renderMov(); });
+      row.querySelector(".rm").addEventListener("click", ()=>{ delete state.budgets[c]; save(); renderAll(); });
       box.appendChild(row);
     }
   }
@@ -1155,8 +1267,8 @@ nav.tabs svg,.ls{display:none}
       li.querySelector(".del").addEventListener("click", ()=>{
         const idx = state.tx.findIndex(x => x.id === t.id); if(idx < 0) return;
         const removed = state.tx.splice(idx,1)[0];
-        save(); renderMov();
-        toast("Movimento eliminato", ()=>{ state.tx.push(removed); save(); renderMov(); });
+        save(); renderAll();
+        toast("Movimento eliminato", ()=>{ state.tx.push(removed); save(); renderAll(); });
       });
       ul.appendChild(li);
     }
@@ -1560,7 +1672,7 @@ nav.tabs svg,.ls{display:none}
     // Abitudini di oggi
     const hb = $("ovHabits"); hb.innerHTML = "";
     const dueH = state.habits.filter(dueToday);
-    $("ovHabitsPanel").hidden = !state.habits.length;
+
     if(state.habits.length && !dueH.length) hb.innerHTML = '<p class="empty" style="padding:0">Niente in programma oggi.</p>';
     dueH.forEach(h => {
       const on = !!h.log[todayISO()];
@@ -1573,7 +1685,8 @@ nav.tabs svg,.ls{display:none}
       hb.appendChild(b);
     });
 
-    $("ovEmpty").hidden = !!(state.tx.length || state.nw.length || state.cards.length || state.tasks.length || state.notes.length || state.habits.length);
+    applyHome();
+    $("ovEmpty").hidden = !!(state.tx.length || state.nw.length || state.cards.length || state.tasks.length || state.notes.length || state.habits.length || state.sheets.some(x => Object.keys(x.cells).length));
   }
 
   // ================= SIMULAZIONE =================
@@ -1873,6 +1986,15 @@ nav.tabs svg,.ls{display:none}
       tx, nw, nwHist: hist,
       budgets: {"Spesa alimentare":280, "Ristoranti e bar":80, "Svago":60, "Trasporti":70},
       goals: [],
+      sheets: [{id:uid(), name:"Spese vacanza", rows:30, cols:8,
+        cells:{A1:"Voce", B1:"Costo", C1:"Persone", D1:"A testa",
+          A2:"Volo", B2:"420", C2:"2", D2:"=B2/C2",
+          A3:"Hotel 6 notti", B3:"780", C3:"2", D3:"=B3/C3",
+          A4:"Auto a noleggio", B4:"210", C4:"2", D4:"=B4/C4",
+          A5:"Cene", B5:"300", C5:"2", D5:"=B5/C5",
+          A7:"Totale", B7:"=SOMMA(B2:B5)", D7:"=SOMMA(D2:D5)",
+          A8:"Budget", B8:"1.500 €", A9:"Margine", B9:"=B8-B7", C9:'=SE(B9>=0;"ok";"sforato")'},
+        fmt:{A1:{b:1}, B1:{b:1}, C1:{b:1}, D1:{b:1}, A7:{b:1}, B7:{b:1, f:"eur"}, D7:{b:1, f:"eur"}, B2:{f:"eur"}, B3:{f:"eur"}, B4:{f:"eur"}, B5:{f:"eur"}, D2:{f:"eur"}, D3:{f:"eur"}, D4:{f:"eur"}, D5:{f:"eur"}, B8:{f:"eur"}, B9:{f:"eur"}}}],
       habits: (()=>{
         const mk = (name, emoji, color, freq, extra, pr) => {
           const h = Object.assign({id:uid(), name, emoji, color, freq, days:[0,1,2,3,4], target:3, log:{}, createdDay:addDays(todayISO(), -84), created:Date.now()}, extra);
@@ -1919,7 +2041,7 @@ nav.tabs svg,.ls{display:none}
     toast("Dati di esempio caricati: puoi azzerarli dal fondo della pagina");
   }
   function resetAll(){
-    if(!confirm("Vuoi davvero cancellare tutti i movimenti, le carte, il patrimonio, l’agenda, le abitudini e le note? L’operazione non si può annullare. Ti conviene prima scaricare un backup.")) return;
+    if(!confirm("Vuoi davvero cancellare tutti i movimenti, le carte, il patrimonio, l’agenda, le abitudini, le note e i fogli? L’operazione non si può annullare. Ti conviene prima scaricare un backup.")) return;
     state = normalize({}); save(); renderAll();
     toast("Tutti i dati sono stati cancellati");
   }
@@ -2693,7 +2815,516 @@ nav.tabs svg,.ls{display:none}
     $("hHabitForm").scrollIntoView({behavior:"smooth", block:"start"}); $("hbName").focus({preventScroll:true});
   }
 
+  // ================= FOGLI (mini foglio di calcolo) =================
+  const XL = (()=>{
+    class FErr { constructor(code){ this.code = code; } }
+    function colName(i){ let s = ""; i++; while(i > 0){ const m = (i - 1) % 26; s = String.fromCharCode(65 + m) + s; i = Math.floor((i - 1) / 26); } return s; }
+    function colIndex(n){ let x = 0; for(const ch of n) x = x * 26 + (ch.charCodeAt(0) - 64); return x - 1; }
+    function parseRef(r){ const m = /^\$?([A-Z]{1,2})\$?(\d+)$/.exec(String(r).toUpperCase()); return m ? {c: colIndex(m[1]), r: Number(m[2]) - 1} : null; }
+    const addr = (c, r) => colName(c) + (r + 1);
+    function literal(raw){
+      const t = String(raw).trim(); if(t === "") return "";
+      let s = t.replace(/\s/g, ""), pct = false;
+      if(/%$/.test(s)){ pct = true; s = s.slice(0, -1); }
+      s = s.replace(/^€|€$/g, "");
+      if(/^[-+]?\d{1,3}(\.\d{3})+(,\d+)?$/.test(s)) s = s.replace(/\./g, "").replace(",", ".");
+      else if(/^[-+]?\d*,\d+$/.test(s)) s = s.replace(",", ".");
+      else if(!/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s)) return t;
+      let n = Number(s); if(!isFinite(n)) return t;
+      return pct ? n / 100 : n;
+    }
+    function tokenize(src){
+      const out = []; let i = 0;
+      while(i < src.length){
+        const rest = src.slice(i); let m;
+        if(/^\s/.test(rest)){ i++; continue; }
+        if((m = /^[A-Za-z][A-Za-z0-9.]*(?=\s*\()/.exec(rest))){ out.push({t:"fn", v:m[0].toUpperCase()}); i += m[0].length; continue; }
+        if((m = /^\$?[A-Za-z]{1,2}\$?\d+(?::\$?[A-Za-z]{1,2}\$?\d+)?/.exec(rest))){ out.push({t:"ref", v:m[0].toUpperCase().replace(/\$/g, "")}); i += m[0].length; continue; }
+        if((m = /^(VERO|FALSO|TRUE|FALSE)\b/i.exec(rest))){ out.push({t:"bool", v:/^(VERO|TRUE)$/i.test(m[0])}); i += m[0].length; continue; }
+        if((m = /^(\d+(?:[.,]\d+)?|[.,]\d+)/.exec(rest))){ out.push({t:"num", v:Number(m[0].replace(",", "."))}); i += m[0].length; continue; }
+        if((m = /^"([^"]*)"/.exec(rest))){ out.push({t:"str", v:m[1]}); i += m[0].length; continue; }
+        if((m = /^(<=|>=|<>|[-+*/^()<>=;,&%])/.exec(rest))){ out.push({t:"op", v:m[0]}); i += m[0].length; continue; }
+        throw new FErr("#ERRORE!");
+      }
+      return out;
+    }
+    function parse(toks){
+      let p = 0;
+      const peek = () => toks[p], isOp = v => toks[p] && toks[p].t === "op" && toks[p].v === v;
+      const expect = v => { if(!isOp(v)) throw new FErr("#ERRORE!"); p++; };
+      const CMP = ["=","<>","<",">","<=",">="];
+      function cmp(){ let l = cat(); while(peek() && peek().t === "op" && CMP.includes(peek().v)){ const o = toks[p++].v; l = {k:"bin", o, l, r:cat()}; } return l; }
+      function cat(){ let l = add(); while(isOp("&")){ p++; l = {k:"bin", o:"&", l, r:add()}; } return l; }
+      function add(){ let l = mul(); while(isOp("+") || isOp("-")){ const o = toks[p++].v; l = {k:"bin", o, l, r:mul()}; } return l; }
+      function mul(){ let l = pow(); while(isOp("*") || isOp("/")){ const o = toks[p++].v; l = {k:"bin", o, l, r:pow()}; } return l; }
+      function pow(){ const l = un(); if(isOp("^")){ p++; return {k:"bin", o:"^", l, r:pow()}; } return l; }
+      function un(){ if(isOp("-")){ p++; return {k:"neg", e:un()}; } if(isOp("+")){ p++; return un(); } return post(); }
+      function post(){ let e = prim(); while(isOp("%")){ p++; e = {k:"pct", e}; } return e; }
+      function prim(){
+        const t = toks[p++]; if(!t) throw new FErr("#ERRORE!");
+        if(t.t === "num") return {k:"num", v:t.v};
+        if(t.t === "str") return {k:"str", v:t.v};
+        if(t.t === "bool") return {k:"bool", v:t.v};
+        if(t.t === "ref") return t.v.includes(":") ? {k:"range", v:t.v} : {k:"ref", v:t.v};
+        if(t.t === "fn"){ expect("("); const args = []; if(!isOp(")")){ args.push(cmp()); while(isOp(";") || isOp(",")){ p++; args.push(cmp()); } } expect(")"); return {k:"fn", n:t.v, args}; }
+        if(t.t === "op" && t.v === "("){ const e = cmp(); expect(")"); return e; }
+        throw new FErr("#ERRORE!");
+      }
+      const e = cmp(); if(p < toks.length) throw new FErr("#ERRORE!"); return e;
+    }
+    const FN = {SOMMA:"SUM", SUM:"SUM", MEDIA:"AVG", AVERAGE:"AVG", MIN:"MIN", MAX:"MAX", "CONTA.NUMERI":"COUNT", COUNT:"COUNT", "CONTA.VALORI":"COUNTA", COUNTA:"COUNTA", SE:"IF", IF:"IF", ARROTONDA:"ROUND", ROUND:"ROUND", ABS:"ABS"};
+    function evaluator(sh){
+      const cache = new Map(), visiting = new Set();
+      function cell(c, r){
+        const a = addr(c, r);
+        if(cache.has(a)) return cache.get(a);
+        const raw = sh.cells[a]; let v;
+        if(raw == null || raw === "") v = "";
+        else if(raw[0] === "=" && raw.length > 1){
+          if(visiting.has(a)) return new FErr("#CICLO!");
+          visiting.add(a);
+          try{ v = ev(parse(tokenize(raw.slice(1)))); if(Array.isArray(v)) v = v.length ? v[0] : ""; }
+          catch(e){ v = e instanceof FErr ? e : new FErr("#ERRORE!"); }
+          visiting.delete(a);
+        } else v = literal(raw);
+        cache.set(a, v); return v;
+      }
+      const chk = v => { if(v instanceof FErr) throw v; return v; };
+      function refv(s){ const q = parseRef(s); if(!q) throw new FErr("#RIF!"); return chk(cell(q.c, q.r)); }
+      function rangev(s){
+        const [x, y] = s.split(":").map(parseRef); if(!x || !y) throw new FErr("#RIF!");
+        const out = [];
+        for(let r = Math.min(x.r, y.r); r <= Math.max(x.r, y.r); r++) for(let c = Math.min(x.c, y.c); c <= Math.max(x.c, y.c); c++) out.push(chk(cell(c, r)));
+        return out;
+      }
+      function num(v){
+        if(v === "" || v == null) return 0;
+        if(typeof v === "number") return v;
+        if(typeof v === "boolean") return v ? 1 : 0;
+        const n = literal(v); if(typeof n === "number") return n;
+        throw new FErr("#VALORE!");
+      }
+      function nums(args){
+        const out = [];
+        args.forEach(a => {
+          if(a.k === "range") rangev(a.v).forEach(v => { if(typeof v === "number") out.push(v); });
+          else if(a.k === "ref"){ const v = refv(a.v); if(typeof v === "number") out.push(v); }
+          else out.push(num(ev(a)));
+        });
+        return out;
+      }
+      function ev(n){
+        switch(n.k){
+          case "num": case "str": case "bool": return n.v;
+          case "ref": return refv(n.v);
+          case "range": return rangev(n.v);
+          case "neg": return -num(ev(n.e));
+          case "pct": return num(ev(n.e)) / 100;
+          case "bin": {
+            const a = ev(n.l), b = ev(n.r);
+            if(n.o === "&") return show(a) + show(b);
+            if(["=","<>","<",">","<=",">="].includes(n.o)){
+              const numeric = typeof a === "number" || typeof b === "number";
+              const A = numeric ? num(a) : String(a).toLowerCase(), B = numeric ? num(b) : String(b).toLowerCase();
+              return n.o === "=" ? A === B : n.o === "<>" ? A !== B : n.o === "<" ? A < B : n.o === ">" ? A > B : n.o === "<=" ? A <= B : A >= B;
+            }
+            const x = num(a), y = num(b);
+            if(n.o === "+") return x + y; if(n.o === "-") return x - y; if(n.o === "*") return x * y;
+            if(n.o === "^") return Math.pow(x, y);
+            if(y === 0) throw new FErr("#DIV/0!"); return x / y;
+          }
+          case "fn": {
+            const F = FN[n.n]; if(!F) throw new FErr("#NOME?");
+            const args = n.args;
+            if(F === "IF"){ const c = ev(args[0]); const t = typeof c === "boolean" ? c : num(c) !== 0; return t ? (args[1] ? ev(args[1]) : true) : (args[2] ? ev(args[2]) : false); }
+            if(F === "ROUND"){ const x = num(ev(args[0])), d = args[1] ? num(ev(args[1])) : 0, f = Math.pow(10, d); return Math.round(x * f) / f; }
+            if(F === "ABS") return Math.abs(num(ev(args[0])));
+            if(F === "COUNTA"){ let k = 0; args.forEach(a => { if(a.k === "range") k += rangev(a.v).filter(v => v !== "").length; else if(ev(a) !== "") k++; }); return k; }
+            const xs = nums(args);
+            if(F === "SUM") return xs.reduce((s, x) => s + x, 0);
+            if(F === "AVG"){ if(!xs.length) throw new FErr("#DIV/0!"); return xs.reduce((s, x) => s + x, 0) / xs.length; }
+            if(F === "MIN") return xs.length ? Math.min(...xs) : 0;
+            if(F === "MAX") return xs.length ? Math.max(...xs) : 0;
+            if(F === "COUNT") return xs.length;
+          }
+        }
+        throw new FErr("#ERRORE!");
+      }
+      return cell;
+    }
+    const nf = new Intl.NumberFormat("it-IT", {maximumFractionDigits: 6});
+    const pf = new Intl.NumberFormat("it-IT", {style:"percent", maximumFractionDigits: 2});
+    function show(v, f){
+      if(v instanceof FErr) return v.code;
+      if(typeof v === "boolean") return v ? "VERO" : "FALSO";
+      if(typeof v === "number"){
+        const x = Math.abs(v) < 1e-12 ? 0 : v;
+        if(f === "eur") return fmt.format(x);
+        if(f === "pct") return pf.format(x);
+        return nf.format(Math.round(x * 1e9) / 1e9);
+      }
+      return v == null ? "" : String(v);
+    }
+    return {FErr, colName, parseRef, addr, literal, evaluator, show};
+  })();
+
+  let xlActive = "", xlSel = {c:0, r:0}, xlAnchor = {c:0, r:0}, xlEditOrig = null, xlDrag = false, xlCell = null;
+  const xlSheet = () => state.sheets.find(s => s.id === xlActive) || state.sheets[0];
+  function xlNewSheet(name){
+    const s = {id:uid(), name: name || ("Foglio " + (state.sheets.length + 1)), cells:{}, fmt:{}, rows:30, cols:8};
+    state.sheets.push(s); return s;
+  }
+  function xlRange(){ return {c1:Math.min(xlSel.c, xlAnchor.c), c2:Math.max(xlSel.c, xlAnchor.c), r1:Math.min(xlSel.r, xlAnchor.r), r2:Math.max(xlSel.r, xlAnchor.r)}; }
+  function xlEach(fn){ const g = xlRange(); for(let r = g.r1; r <= g.r2; r++) for(let c = g.c1; c <= g.c2; c++) fn(c, r); }
+
+  function renderSheets(){
+    if(!state.sheets.length){ xlNewSheet("Foglio 1"); }
+    if(!state.sheets.some(s => s.id === xlActive)) xlActive = state.sheets[0].id;
+    const sh = xlSheet();
+    const tabs = $("xlTabs"); tabs.innerHTML = "";
+    state.sheets.forEach(s => {
+      const b = document.createElement("button"); b.className = "fchip"; b.textContent = s.name; b.setAttribute("role","tab");
+      b.setAttribute("aria-selected", String(s.id === xlActive)); b.setAttribute("aria-pressed", String(s.id === xlActive));
+      b.addEventListener("click", ()=>{ xlCommit(); xlActive = s.id; xlSel = {c:0, r:0}; xlAnchor = {c:0, r:0}; renderSheets(); });
+      b.addEventListener("dblclick", xlRenameSheet);
+      tabs.appendChild(b);
+    });
+    const add = document.createElement("button"); add.className = "fchip"; add.textContent = "+"; add.setAttribute("aria-label","Nuovo foglio");
+    add.addEventListener("click", ()=>{ xlCommit(); const s = xlNewSheet(); xlActive = s.id; save(); renderSheets(); });
+    tabs.appendChild(add);
+    $("xlDel").hidden = state.sheets.length < 2;
+
+    xlSel.c = Math.min(xlSel.c, sh.cols - 1); xlSel.r = Math.min(xlSel.r, sh.rows - 1);
+    xlAnchor.c = Math.min(xlAnchor.c, sh.cols - 1); xlAnchor.r = Math.min(xlAnchor.r, sh.rows - 1);
+    xlCell = XL.evaluator(sh);
+    const t = $("xlGrid"); t.innerHTML = "";
+    const thead = document.createElement("thead"), hr = document.createElement("tr");
+    const corner = document.createElement("th"); corner.className = "xl-corner"; hr.appendChild(corner);
+    for(let c = 0; c < sh.cols; c++){ const th = document.createElement("th"); th.textContent = XL.colName(c); th.dataset.c = c; hr.appendChild(th); }
+    thead.appendChild(hr); t.appendChild(thead);
+    const tb = document.createElement("tbody");
+    for(let r = 0; r < sh.rows; r++){
+      const tr = document.createElement("tr");
+      const th = document.createElement("th"); th.textContent = r + 1; th.dataset.r = r; tr.appendChild(th);
+      for(let c = 0; c < sh.cols; c++){
+        const a = XL.addr(c, r), td = document.createElement("td"), f = sh.fmt[a] || {};
+        td.dataset.c = c; td.dataset.r = r;
+        const raw = sh.cells[a];
+        if(raw != null && raw !== ""){
+          const v = xlCell(c, r);
+          td.textContent = XL.show(v, f.f);
+          if(typeof v === "number") td.classList.add("n");
+          if(v instanceof XL.FErr){ td.classList.add("e"); td.title = v.code === "#DIV/0!" ? "Divisione per zero" : v.code === "#CICLO!" ? "La formula fa riferimento a sé stessa" : v.code === "#NOME?" ? "Funzione non riconosciuta" : "Formula non valida"; }
+        }
+        if(f.b) td.classList.add("b");
+        tr.appendChild(td);
+      }
+      tb.appendChild(tr);
+    }
+    t.appendChild(tb);
+    xlPaintSel();
+  }
+  function xlPaintSel(){
+    const g = xlRange();
+    document.querySelectorAll("#xlGrid td").forEach(td => {
+      const c = +td.dataset.c, r = +td.dataset.r;
+      td.classList.toggle("in", c >= g.c1 && c <= g.c2 && r >= g.r1 && r <= g.r2 && (g.c1 !== g.c2 || g.r1 !== g.r2));
+      td.classList.toggle("sel", c === xlSel.c && r === xlSel.r);
+    });
+    document.querySelectorAll("#xlGrid thead th[data-c]").forEach(th => th.classList.toggle("hl", +th.dataset.c >= g.c1 && +th.dataset.c <= g.c2));
+    document.querySelectorAll("#xlGrid tbody th").forEach(th => th.classList.toggle("hl", +th.dataset.r >= g.r1 && +th.dataset.r <= g.r2));
+    const a = XL.addr(xlSel.c, xlSel.r);
+    $("xlAddr").textContent = (g.c1 !== g.c2 || g.r1 !== g.r2) ? XL.addr(g.c1, g.r1) + ":" + XL.addr(g.c2, g.r2) : a;
+    if(document.activeElement !== $("xlInput")){ $("xlInput").value = xlSheet().cells[a] || ""; xlEditOrig = null; }
+    const f = xlSheet().fmt[a] || {};
+    $("xlBold").setAttribute("aria-pressed", String(!!f.b)); $("xlEur").setAttribute("aria-pressed", String(f.f === "eur")); $("xlPct").setAttribute("aria-pressed", String(f.f === "pct"));
+  }
+  function xlScrollIntoView(){
+    const td = document.querySelector('#xlGrid td[data-c="' + xlSel.c + '"][data-r="' + xlSel.r + '"]');
+    if(!td) return;
+    const w = $("xlWrap"), head = 32, left = 44;
+    if(td.offsetTop - head < w.scrollTop) w.scrollTop = td.offsetTop - head;
+    else if(td.offsetTop + td.offsetHeight > w.scrollTop + w.clientHeight) w.scrollTop = td.offsetTop + td.offsetHeight - w.clientHeight;
+    if(td.offsetLeft - left < w.scrollLeft) w.scrollLeft = td.offsetLeft - left;
+    else if(td.offsetLeft + td.offsetWidth > w.scrollLeft + w.clientWidth) w.scrollLeft = td.offsetLeft + td.offsetWidth - w.clientWidth;
+  }
+  function xlSelect(c, r, extend){
+    const sh = xlSheet();
+    c = Math.max(0, Math.min(sh.cols - 1, c)); r = Math.max(0, Math.min(sh.rows - 1, r));
+    xlSel = {c, r}; if(!extend) xlAnchor = {c, r};
+    xlPaintSel(); xlScrollIntoView();
+  }
+  function xlSetRaw(a, raw){
+    const sh = xlSheet();
+    raw = String(raw);
+    if(raw.trim() === ""){ delete sh.cells[a]; return; }
+    sh.cells[a] = raw;
+    if(raw[0] !== "=" && typeof XL.literal(raw) === "number"){
+      if(/€/.test(raw)) sh.fmt[a] = Object.assign({}, sh.fmt[a], {f:"eur"});
+      else if(/%\s*$/.test(raw)) sh.fmt[a] = Object.assign({}, sh.fmt[a], {f:"pct"});
+    }
+  }
+  function xlCommit(){
+    const inp = $("xlInput");
+    if(xlEditOrig === null) return false;
+    const a = XL.addr(xlSel.c, xlSel.r);
+    const changed = inp.value !== xlEditOrig;
+    xlEditOrig = null;
+    if(changed){ xlSetRaw(a, inp.value); save(); renderSheets(); }
+    return changed;
+  }
+  function xlStartEdit(initial){
+    const inp = $("xlInput");
+    const raw = xlSheet().cells[XL.addr(xlSel.c, xlSel.r)] || "";
+    xlEditOrig = raw;
+    inp.value = initial != null ? initial : raw;
+    inp.focus({preventScroll:true});
+    const end = inp.value.length; inp.setSelectionRange(end, end);
+  }
+  const coarse = () => window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  function xlAfterEnter(dc, dr){
+    xlCommit();
+    xlSelect(xlSel.c + dc, xlSel.r + dr);
+    if(coarse()) xlStartEdit(); else $("xlWrap").focus({preventScroll:true});
+  }
+  function xlInsertRef(c, r, extend){
+    const inp = $("xlInput"), ref = XL.addr(c, r);
+    let v = inp.value, s = inp.selectionStart, e = inp.selectionEnd;
+    if(extend && xlInsertRef.last && v.slice(xlInsertRef.last.s, xlInsertRef.last.e) === xlInsertRef.last.ref){
+      const nr = xlInsertRef.last.ref.split(":")[0] + ":" + ref;
+      v = v.slice(0, xlInsertRef.last.s) + nr + v.slice(xlInsertRef.last.e);
+      xlInsertRef.last = {s: xlInsertRef.last.s, e: xlInsertRef.last.s + nr.length, ref: nr};
+    } else {
+      if(xlInsertRef.last && xlInsertRef.last.e === s && v.slice(xlInsertRef.last.s, xlInsertRef.last.e) === xlInsertRef.last.ref){ s = xlInsertRef.last.s; }
+      v = v.slice(0, s) + ref + v.slice(e);
+      xlInsertRef.last = {s, e: s + ref.length, ref};
+    }
+    inp.value = v; inp.focus({preventScroll:true}); inp.setSelectionRange(xlInsertRef.last.e, xlInsertRef.last.e);
+  }
+  function xlAutoSum(){
+    const sh = xlSheet(), g = xlRange();
+    const isNum = (c, r) => { const v = xlCell(c, r); return typeof v === "number"; };
+    if(g.c1 !== g.c2 || g.r1 !== g.r2){
+      const r = g.r2 + 1;
+      if(r >= sh.rows) sh.rows = r + 1;
+      for(let c = g.c1; c <= g.c2; c++) xlSetRaw(XL.addr(c, r), "=SOMMA(" + XL.addr(c, g.r1) + ":" + XL.addr(c, g.r2) + ")");
+      save(); renderSheets(); xlSelect(g.c1, r); return;
+    }
+    const {c, r} = xlSel;
+    let r0 = r - 1; while(r0 >= 0 && isNum(c, r0)) r0--;
+    if(r0 < r - 1){ xlSetRaw(XL.addr(c, r), "=SOMMA(" + XL.addr(c, r0 + 1) + ":" + XL.addr(c, r - 1) + ")"); save(); renderSheets(); return; }
+    let c0 = c - 1; while(c0 >= 0 && isNum(c0, r)) c0--;
+    if(c0 < c - 1){ xlSetRaw(XL.addr(c, r), "=SOMMA(" + XL.addr(c0 + 1, r) + ":" + XL.addr(c - 1, r) + ")"); save(); renderSheets(); return; }
+    xlStartEdit("=SOMMA()"); const inp = $("xlInput"); inp.setSelectionRange(7, 7);
+  }
+  function xlToggleFmt(key, val){
+    const sh = xlSheet(), a0 = XL.addr(xlSel.c, xlSel.r), cur = (sh.fmt[a0] || {})[key];
+    const nv = key === "b" ? !cur : (cur === val ? undefined : val);
+    xlEach((c, r) => {
+      const a = XL.addr(c, r), f = Object.assign({}, sh.fmt[a]);
+      if(nv) f[key] = nv; else delete f[key];
+      if(Object.keys(f).length) sh.fmt[a] = f; else delete sh.fmt[a];
+    });
+    save(); renderSheets();
+  }
+  function xlClearSel(){ const sh = xlSheet(); xlEach((c, r) => { delete sh.cells[XL.addr(c, r)]; }); save(); renderSheets(); }
+  function xlRenameSheet(){
+    const sh = xlSheet(); const n = prompt("Nome del foglio:", sh.name);
+    if(n && n.trim()){ sh.name = n.trim().slice(0, 40); save(); renderSheets(); }
+  }
+  function xlToTSV(){
+    const sh = xlSheet(), g = xlRange(), rows = [];
+    for(let r = g.r1; r <= g.r2; r++){ const row = []; for(let c = g.c1; c <= g.c2; c++) row.push((sh.cells[XL.addr(c, r)] || "").replace(/[\t\n]/g, " ")); rows.push(row.join("\t")); }
+    return rows.join("\n");
+  }
+  function xlPasteTSV(text){
+    const sh = xlSheet();
+    const rows = text.replace(/\r/g, "").replace(/\n$/, "").split("\n").map(l => l.split("\t"));
+    rows.forEach((row, i) => row.forEach((val, j) => {
+      const c = xlSel.c + j, r = xlSel.r + i;
+      if(c >= sh.cols) sh.cols = Math.min(52, c + 1);
+      if(r >= sh.rows) sh.rows = r + 1;
+      if(c < sh.cols) xlSetRaw(XL.addr(c, r), val);
+    }));
+    const w = Math.max(...rows.map(x => x.length));
+    xlAnchor = {c: Math.min(sh.cols - 1, xlSel.c + w - 1), r: xlSel.r + rows.length - 1};
+    save(); renderSheets();
+    toast("Incollate " + rows.length + (rows.length === 1 ? " riga" : " righe"));
+  }
+  function xlCSV(){
+    const sh = xlSheet(), cell = XL.evaluator(sh);
+    let maxR = 0, maxC = 0;
+    Object.keys(sh.cells).forEach(a => { const p = XL.parseRef(a); if(p){ maxR = Math.max(maxR, p.r); maxC = Math.max(maxC, p.c); } });
+    const lines = [];
+    for(let r = 0; r <= maxR; r++){
+      const row = [];
+      for(let c = 0; c <= maxC; c++){
+        const v = cell(c, r);
+        const s = typeof v === "number" ? String(Math.round(v * 1e9) / 1e9).replace(".", ",") : XL.show(v);
+        row.push('"' + s.replace(/"/g, '""') + '"');
+      }
+      lines.push(row.join(";"));
+    }
+    download((sh.name || "foglio").replace(/[^\w\-àèéìòù ]/gi, "").trim() + ".csv", "\ufeff" + lines.join("\n"), "text/csv;charset=utf-8");
+  }
+
+  // ================= PANORAMICA PERSONALIZZABILE =================
+  const HOME_PANELS = [
+    {k:"kpi", label:"Riepilogo: patrimonio, entrate, uscite, risparmio"},
+    {k:"tasks", label:"Da fare"},
+    {k:"habits", label:"Abitudini di oggi"},
+    {k:"flow", label:"Flusso di cassa"},
+    {k:"recent", label:"Ultimi movimenti"},
+    {k:"where", label:"Dove vanno i soldi"},
+    {k:"cards", label:"Carte fedeltà"}
+  ];
+  function homePrefs(){
+    const p = state.prefs.home || {};
+    const known = HOME_PANELS.map(x => x.k);
+    const order = (Array.isArray(p.order) ? p.order.filter(k => known.includes(k)) : []);
+    known.forEach(k => { if(!order.includes(k)) order.push(k); });
+    return {order, hidden: Array.isArray(p.hidden) ? p.hidden.filter(k => known.includes(k)) : []};
+  }
+  function applyHome(){
+    const hp = homePrefs(), grid = $("ovGrid");
+    let shown = 0;
+    hp.order.forEach(k => {
+      const el = grid.querySelector('[data-k="' + k + '"]'); if(!el) return;
+      grid.appendChild(el);
+      const hide = hp.hidden.includes(k) || (k === "habits" && !state.habits.length);
+      el.hidden = hide; if(!hp.hidden.includes(k)) shown++;
+    });
+    $("ovAllHidden").hidden = shown > 0;
+  }
+  function setHome(order, hidden){ state.prefs.home = {order, hidden}; save(); }
+  function renderHomeEd(){
+    const hp = homePrefs(), ul = $("homeList"); ul.innerHTML = "";
+    hp.order.forEach((k, i) => {
+      const meta = HOME_PANELS.find(x => x.k === k);
+      const li = document.createElement("li");
+      li.innerHTML = '<label class="chk"><input type="checkbox"><span></span></label><div class="hl-btns"><button class="del" aria-label="Sposta su">↑</button><button class="del" aria-label="Sposta giù">↓</button></div>';
+      const cb = li.querySelector("input"); cb.checked = !hp.hidden.includes(k);
+      li.querySelector("span").textContent = meta.label;
+      cb.addEventListener("change", ()=>{ const h = homePrefs(); const hid = cb.checked ? h.hidden.filter(x => x !== k) : h.hidden.concat(k); setHome(h.order, hid); applyHome(); });
+      const [up, down] = li.querySelectorAll(".hl-btns button");
+      up.disabled = i === 0; down.disabled = i === hp.order.length - 1;
+      const move = d => { const h = homePrefs(), o = h.order.slice(), j = i + d; [o[i], o[j]] = [o[j], o[i]]; setHome(o, h.hidden); renderHomeEd(); applyHome(); (d < 0 ? $("homeList").children[j].querySelectorAll(".hl-btns button")[0] : $("homeList").children[j].querySelectorAll(".hl-btns button")[1]).focus(); };
+      up.addEventListener("click", ()=> move(-1)); down.addEventListener("click", ()=> move(1));
+      ul.appendChild(li);
+    });
+  }
+  function openHomeEd(){ renderHomeEd(); $("homeEd").hidden = false; document.body.style.overflow = "hidden"; $("homeEdDone").focus(); }
+  function closeHomeEd(){ if($("homeEd").hidden) return; $("homeEd").hidden = true; document.body.style.overflow = ""; renderAll(); }
+
+  // ================= BUDGET =================
+  function renderBudget(){
+    const list = monthTx(ym(view));
+    renderCats(list);
+    const sums = {};
+    list.filter(t => t.kind === "out").forEach(t => sums[t.cat] = (sums[t.cat] || 0) + t.amount);
+    const capped = Object.keys(state.budgets).filter(c => state.budgets[c] > 0);
+    const tot = capped.reduce((s, c) => s + state.budgets[c], 0), spent = capped.reduce((s, c) => s + (sums[c] || 0), 0);
+    const over = capped.filter(c => (sums[c] || 0) > state.budgets[c]).length;
+    const mName = monthFmt.format(view);
+    if(!capped.length){
+      $("bRemain").textContent = "Nessun tetto"; $("bRemain").classList.remove("neg");
+      $("bCaption").textContent = "Imposta qui sotto un tetto mensile per le categorie che vuoi tenere sotto controllo";
+      $("bSplit").hidden = true; $("bLegend").hidden = true; return;
+    }
+    const left = tot - spent;
+    $("bSplit").hidden = false; $("bLegend").hidden = false;
+    $("bRemain").textContent = fmt.format(left); $("bRemain").classList.toggle("neg", left < 0);
+    $("bCaption").textContent = (left >= 0 ? "ancora disponibili nei tetti di " : "oltre i tetti di spesa di ") + mName + (over ? " · " + over + (over === 1 ? " categoria oltre il tetto" : " categorie oltre il tetto") : "");
+    $("bBar").style.width = Math.min(100, tot ? spent / tot * 100 : 0) + "%";
+    $("bBar").style.background = left < 0 ? "var(--out)" : "var(--accent)";
+    $("bSpent").textContent = fmt.format(spent); $("bTot").textContent = fmt.format(tot);
+  }
+
   // ---------- Eventi ----------
+  // Panoramica personalizzabile e modulo movimenti
+  $("ovCustomize").addEventListener("click", openHomeEd);
+  $("homeEdDone").addEventListener("click", closeHomeEd);
+  $("homeEd").addEventListener("click", e => { if(e.target === $("homeEd")) closeHomeEd(); });
+  $("homeReset").addEventListener("click", ()=>{ delete state.prefs.home; save(); renderHomeEd(); applyHome(); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape" && !$("homeEd").hidden) closeHomeEd(); });
+  $("addMovToggle").addEventListener("click", ()=>{
+    const p = $("addMov"), o = p.classList.toggle("open");
+    $("addMovToggle").setAttribute("aria-expanded", String(o));
+    $("addMovToggle").textContent = o ? "Chiudi" : "＋ Nuovo movimento";
+    if(o) $("fAmount").focus({preventScroll:true});
+  });
+
+  // Fogli
+  (function(){
+    const wrap = $("xlWrap"), inp = $("xlInput");
+    const cellFrom = e => { const td = e.target.closest && e.target.closest("#xlGrid td"); return td ? {c:+td.dataset.c, r:+td.dataset.r} : null; };
+    wrap.addEventListener("mousedown", e => {
+      const p = cellFrom(e); if(!p) return;
+      const formulaMode = document.activeElement === inp && inp.value.trim().startsWith("=") && xlEditOrig !== null;
+      if(formulaMode){ e.preventDefault(); xlInsertRef(p.c, p.r, e.shiftKey); return; }
+      xlCommit();
+      const again = p.c === xlSel.c && p.r === xlSel.r && xlAnchor.c === xlSel.c && xlAnchor.r === xlSel.r;
+      xlSelect(p.c, p.r, e.shiftKey);
+      xlDrag = !e.shiftKey && e.button === 0;
+      if(again && coarse()){ e.preventDefault(); xlStartEdit(); }
+    });
+    wrap.addEventListener("mouseover", e => { if(!xlDrag) return; const p = cellFrom(e); if(p){ xlSel = p; xlPaintSel(); } });
+    document.addEventListener("mouseup", ()=>{ xlDrag = false; });
+    wrap.addEventListener("dblclick", e => { if(cellFrom(e)) xlStartEdit(); });
+    wrap.addEventListener("keydown", e => {
+      if(e.target !== wrap) return;
+      const k = e.key, ctrl = e.ctrlKey || e.metaKey;
+      const mv = {ArrowUp:[0,-1], ArrowDown:[0,1], ArrowLeft:[-1,0], ArrowRight:[1,0]}[k];
+      if(mv){ e.preventDefault(); if(e.shiftKey){ const s = xlSheet(); xlSel = {c:Math.max(0, Math.min(s.cols - 1, xlSel.c + mv[0])), r:Math.max(0, Math.min(s.rows - 1, xlSel.r + mv[1]))}; xlPaintSel(); xlScrollIntoView(); } else xlSelect(xlSel.c + mv[0], xlSel.r + mv[1]); return; }
+      if(k === "Tab"){ e.preventDefault(); xlSelect(xlSel.c + (e.shiftKey ? -1 : 1), xlSel.r); return; }
+      if(k === "Enter" || k === "F2"){ e.preventDefault(); xlStartEdit(); return; }
+      if(k === "Delete" || k === "Backspace"){ e.preventDefault(); xlClearSel(); return; }
+      if(ctrl && (k === "b" || k === "B")){ e.preventDefault(); xlToggleFmt("b"); return; }
+      if(!ctrl && !e.altKey && k.length === 1){ e.preventDefault(); xlStartEdit(k); }
+    });
+    inp.addEventListener("focus", ()=>{ if(xlEditOrig === null) xlEditOrig = xlSheet().cells[XL.addr(xlSel.c, xlSel.r)] || ""; xlInsertRef.last = null; });
+    inp.addEventListener("input", ()=>{ xlInsertRef.last = null; });
+    inp.addEventListener("keydown", e => {
+      if(e.key === "Enter"){ e.preventDefault(); xlAfterEnter(0, e.shiftKey ? -1 : 1); }
+      else if(e.key === "Tab"){ e.preventDefault(); xlAfterEnter(e.shiftKey ? -1 : 1, 0); }
+      else if(e.key === "Escape"){ e.preventDefault(); inp.value = xlEditOrig !== null ? xlEditOrig : inp.value; xlEditOrig = null; wrap.focus({preventScroll:true}); }
+    });
+    inp.addEventListener("blur", ()=>{ setTimeout(()=>{ if(document.activeElement !== inp) xlCommit(); }, 0); });
+    const keep = b => b.addEventListener("mousedown", e => e.preventDefault());
+    ["xlBold","xlEur","xlPct","xlSum","xlClear"].forEach(id => keep($(id)));
+    $("xlBold").addEventListener("click", ()=>{ xlCommit(); xlToggleFmt("b"); });
+    $("xlEur").addEventListener("click", ()=>{ xlCommit(); xlToggleFmt("f", "eur"); });
+    $("xlPct").addEventListener("click", ()=>{ xlCommit(); xlToggleFmt("f", "pct"); });
+    $("xlSum").addEventListener("click", ()=>{ xlCommit(); xlAutoSum(); });
+    $("xlClear").addEventListener("click", ()=>{ xlEditOrig = null; inp.blur(); xlClearSel(); });
+    $("xlAddRows").addEventListener("click", ()=>{ xlSheet().rows += 10; save(); renderSheets(); });
+    $("xlAddCol").addEventListener("click", ()=>{ const s = xlSheet(); if(s.cols >= 52){ toast("Hai raggiunto il massimo di colonne"); return; } s.cols += 1; save(); renderSheets(); $("xlWrap").scrollLeft = 1e6; });
+    $("xlCsv").addEventListener("click", xlCSV);
+    $("xlRename").addEventListener("click", xlRenameSheet);
+    $("xlDel").addEventListener("click", ()=>{
+      const s = xlSheet(); if(state.sheets.length < 2) return;
+      if(!confirm("Eliminare il foglio «" + s.name + "» e tutto il suo contenuto?")) return;
+      const idx = state.sheets.indexOf(s); state.sheets.splice(idx, 1); xlActive = state.sheets[Math.max(0, idx - 1)].id; save(); renderSheets();
+      toast("Foglio eliminato", ()=>{ state.sheets.splice(idx, 0, s); xlActive = s.id; save(); renderSheets(); });
+    });
+    document.addEventListener("copy", e => {
+      if(currentView !== "fogli" || document.activeElement === inp || $("login").hidden === false) return;
+      if(!e.clipboardData) return;
+      e.clipboardData.setData("text/plain", xlToTSV()); e.preventDefault();
+    });
+    document.addEventListener("cut", e => {
+      if(currentView !== "fogli" || document.activeElement === inp || !e.clipboardData) return;
+      e.clipboardData.setData("text/plain", xlToTSV()); e.preventDefault(); xlClearSel();
+    });
+    document.addEventListener("paste", e => {
+      if(currentView !== "fogli" || document.activeElement === inp || !e.clipboardData) return;
+      const text = e.clipboardData.getData("text/plain"); if(!text) return;
+      e.preventDefault();
+      if(!text.includes("\t") && !text.includes("\n")){ xlSetRaw(XL.addr(xlSel.c, xlSel.r), text); save(); renderSheets(); return; }
+      xlPasteTSV(text);
+    });
+  })();
+
   // Abitudini
   HB_EMOJI.forEach(em => { const b = document.createElement("button"); b.type = "button"; b.textContent = em; b.setAttribute("aria-label","Usa " + em); b.addEventListener("click", ()=>{ $("hbEmoji").value = em; }); $("hbEmojiOpts").appendChild(b); });
   $("hbFreq").addEventListener("change", renderHabitForm);
@@ -2777,7 +3408,11 @@ nav.tabs svg,.ls{display:none}
   $("kNwEye").addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); state.prefs.hideNW = !state.prefs.hideNW; save(); renderOverview(); });
   $("fab").addEventListener("click", ()=>{
     if(location.hash !== "#movimenti") location.hash = "#movimenti";
-    setTimeout(()=>{ window.scrollTo({top:0, behavior:"smooth"}); $("fAmount").focus({preventScroll:true}); }, 60);
+    setTimeout(()=>{
+      const p = $("addMov");
+      if(!p.classList.contains("open")){ p.classList.add("open"); $("addMovToggle").setAttribute("aria-expanded","true"); $("addMovToggle").textContent = "Chiudi"; }
+      p.scrollIntoView({behavior:"smooth", block:"start"}); $("fAmount").focus({preventScroll:true});
+    }, 60);
   });
   $("resetBtn").addEventListener("click", resetAll);
 
