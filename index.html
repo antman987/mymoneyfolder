@@ -369,7 +369,7 @@ table.xl td.sel{box-shadow:inset 0 0 0 2px var(--accent)}
 .ovgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
 .ovgrid > *{margin:0 !important}
 .ovgrid .wide{grid-column:1/-1}
-.ov-cust{margin-left:auto}
+.ov-cust{margin-left:auto;font-size:1.25rem;text-decoration:none;padding:6px;line-height:1}
 .homelist{list-style:none;margin:0;padding:0}
 .homelist li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
 .homelist li:first-child{border-top:0}
@@ -410,7 +410,6 @@ nav.tabs svg,.ls{display:none}
   .agenda-cal{order:-1}
   .ovgrid{grid-template-columns:minmax(0,1fr);gap:20px}
   .month .label{min-width:120px}
-  .ov-cust{font-size:1.25rem;text-decoration:none;padding:6px}
   .ovc-t{display:none}
   .mov-form{order:-1}
   .addmov-toggle{display:block;width:100%;background:none;border:0;padding:4px 0;text-align:left;font-weight:700;font-size:1.05rem;cursor:pointer;color:var(--accent)}
@@ -483,7 +482,7 @@ nav.tabs svg,.ls{display:none}
     <button id="prev" aria-label="Mese precedente">‹</button>
     <div class="label" id="monthLabel"></div>
     <button id="next" aria-label="Mese successivo">›</button>
-    <button class="link ov-cust" id="ovCustomize" hidden aria-label="Personalizza la panoramica">⚙<span class="ovc-t"> Personalizza</span></button>
+    <button class="link ov-cust" id="ovCustomize" hidden aria-label="Personalizza la panoramica" title="Personalizza la panoramica">⚙</button>
   </div>
 
   <!-- ============ PANORAMICA ============ -->
@@ -2992,7 +2991,6 @@ nav.tabs svg,.ls{display:none}
     const add = document.createElement("button"); add.className = "fchip"; add.textContent = "+"; add.setAttribute("aria-label","Nuovo foglio");
     add.addEventListener("click", ()=>{ xlCommit(); const s = xlNewSheet(); xlActive = s.id; save(); renderSheets(); });
     tabs.appendChild(add);
-    $("xlDel").hidden = state.sheets.length < 2;
 
     xlSel.c = Math.min(xlSel.c, sh.cols - 1); xlSel.r = Math.min(xlSel.r, sh.rows - 1);
     xlAnchor.c = Math.min(xlAnchor.c, sh.cols - 1); xlAnchor.r = Math.min(xlAnchor.r, sh.rows - 1);
@@ -3302,10 +3300,12 @@ nav.tabs svg,.ls{display:none}
     $("xlCsv").addEventListener("click", xlCSV);
     $("xlRename").addEventListener("click", xlRenameSheet);
     $("xlDel").addEventListener("click", ()=>{
-      const s = xlSheet(); if(state.sheets.length < 2) return;
+      const s = xlSheet();
       if(!confirm("Eliminare il foglio «" + s.name + "» e tutto il suo contenuto?")) return;
-      const idx = state.sheets.indexOf(s); state.sheets.splice(idx, 1); xlActive = state.sheets[Math.max(0, idx - 1)].id; save(); renderSheets();
-      toast("Foglio eliminato", ()=>{ state.sheets.splice(idx, 0, s); xlActive = s.id; save(); renderSheets(); });
+      const idx = state.sheets.indexOf(s); state.sheets.splice(idx, 1);
+      const ph = state.sheets.length ? null : xlNewSheet("Foglio 1");
+      xlActive = state.sheets[Math.max(0, idx - 1)].id; save(); renderSheets();
+      toast("Foglio eliminato", ()=>{ if(ph && !Object.keys(ph.cells).length) state.sheets = state.sheets.filter(x => x !== ph); state.sheets.splice(idx, 0, s); xlActive = s.id; save(); renderSheets(); });
     });
     document.addEventListener("copy", e => {
       if(currentView !== "fogli" || document.activeElement === inp || $("login").hidden === false) return;
